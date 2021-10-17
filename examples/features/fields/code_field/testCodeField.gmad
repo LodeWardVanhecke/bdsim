@@ -1,0 +1,19 @@
+d1: drift, l=1*m;
+d2: drift, l=0.6*m;
+d3: drift, l=0.5*m;
+d4: drift, l=1.4*m;
+q1: quadrupole, l=0.5*m, k1=0.000000000000001;
+c1: rcol, l=1*m, ysize=5*mm, xsize=5*mm, material="Copper";
+s1: sbend, l=4*m, angle=0.3;
+s2: sbend, l=10*m, angle= -0.4;
+endoftheline: marker;
+
+l1: line = (d1,q1,d2,s2,d4,s1,s1,d4,q1,d4,c1,endoftheline);
+use,period=l1;
+
+sample, range=endoftheline;
+
+option, ngenerate=1;
+
+beam, particle="proton",
+      energy=10.0*GeV;

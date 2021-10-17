@@ -31,11 +31,13 @@ along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "BDSIMClass.hh"
 #include "BDSException.hh"
-
+#include "BDSROOTCompiledFunction.hh"
 #include <iostream>
 
 int main(int argc, char** argv)
 {
+  BDSROOTCompiledFunction *cf = new BDSROOTCompiledFunction("testClass.cc","testClass");
+
   BDSIM* bds = nullptr;
   try
     {
