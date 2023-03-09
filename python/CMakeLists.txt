@@ -3,13 +3,14 @@ find_package(pybind11 CONFIG REQUIRED)
 # glob python binding sources
 file(GLOB GMAD_PARSER_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
 
-# Object library, will be used by both static and shared library
-add_library(python-binding-lib OBJECT ${GMAD_PARSER_SOURCES})
+pybind11_add_module(element ${CMAKE_CURRENT_SOURCE_DIR}/elementPybind.cc)
+target_link_libraries(element PUBLIC ${GMAD_LIB_NAME} Python::Module)
 
-# headers
-target_include_directories(python-binding-lib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../parser/)
+pybind11_add_module(elementtype ${CMAKE_CURRENT_SOURCE_DIR}/elementtypePybind.cc)
+target_link_libraries(elementtype PUBLIC ${GMAD_LIB_NAME} Python::Module)
 
-# Shared libraries need PIC
-set_target_properties(python-binding-lib PROPERTIES POSITION_INDEPENDENT_CODE 1)
+pybind11_add_module(fastlist ${CMAKE_CURRENT_SOURCE_DIR}/fastlistPybind.cc)
+target_link_libraries(fastlist PUBLIC ${GMAD_LIB_NAME} Python::Module)
 
-target_link_libraries(python-binding-lib PUBLIC pybind11::module Python::Module)
+pybind11_add_module(parser ${CMAKE_CURRENT_SOURCE_DIR}/parserPybind.cc)
+target_link_libraries(parser PUBLIC ${GMAD_LIB_NAME} Python::Module)
