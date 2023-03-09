@@ -13,18 +13,23 @@ PYBIND11_MODULE(parser, m) {
        /// Exit method
       .def("quit",&GMAD::Parser::quit)
       /// Method that transfers parameters to element properties
-      //.def("write_table",&GMAD::Parser::write_table)
+      .def("write_table",&GMAD::Parser::write_table)
 
        /// Expand a sequence by name from start to end into the target list. This
        /// removes sublines from the beamline into one LINE.
        ///@{ Add value to front of temporary list
        //
-
+       .def("expand_line",[](GMAD::Parser &parser,
+                             GMAD::FastList<GMAD::Element>& target,
+                             const std::string& name,
+                             std::string        start = "",
+                             std::string        end   = "") {parser.expand_line(target,name,start,end);})
        /// Expand the main beamline as defined by the use command.
        .def("expand_line",[](GMAD::Parser &parser,
                              const std::string name,
                              std::string start,
                              std::string end) {parser.expand_line(name,start,end);})
+       .def("get_sequence",&GMAD::Parser::get_sequence)
 
        ///@{ Add value to front of temporary list
        .def("Store",[](GMAD::Parser &parser, double value) {parser.Store(value);})

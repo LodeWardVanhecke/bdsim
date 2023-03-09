@@ -7,5 +7,6 @@ namespace py = pybind11;
 #include "fastlist.h"
 
 PYBIND11_MODULE(fastlist, m) {
-  py::class_<GMAD::FastList<GMAD::Element>>(m,"FastList_Element");
+  py::class_<GMAD::FastList<GMAD::Element>>(m,"FastList_Element")
+    .def(py::init<>());
 }
