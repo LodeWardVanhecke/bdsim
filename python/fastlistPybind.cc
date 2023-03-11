@@ -7,6 +7,7 @@ namespace py = pybind11;
 #include "fastlist.h"
 
 PYBIND11_MODULE(fastlist, m) {
+
   py::class_<GMAD::FastList<GMAD::Element>>(m,"FastList_Element")
     .def(py::init<>())
     .def("insert",[](GMAD::FastList<GMAD::Element> &fastlist,
@@ -36,6 +37,7 @@ PYBIND11_MODULE(fastlist, m) {
                         bool unique=false,
                         const std::string &objectName="element")
                         { fastlist.push_back(el,unique,objectName);})
+    .def("empty",&GMAD::FastList<GMAD::Element>::empty)
     .def("size",&GMAD::FastList<GMAD::Element>::size)
     .def("clear",&GMAD::FastList<GMAD::Element>::clear)
     .def("erase",[](GMAD::FastList<GMAD::Element> &fastlist){fastlist.erase();})
@@ -45,7 +47,10 @@ PYBIND11_MODULE(fastlist, m) {
     .def("end",[](GMAD::FastList<GMAD::Element> &fastlist) {return fastlist.end();})
     .def("getVector",&GMAD::FastList<GMAD::Element>::getVector);
 
-  py::class_<GMAD::FastList<GMAD::Element>::FastListIterator>(m,"FastList_FastListIterator");
+  py::class_<GMAD::FastList<GMAD::Element>::FastListIterator>(m,"FastList_FastListIterator")
+    .def("__eq__",[](GMAD::FastList<GMAD::Element>::FastListIterator &i1,
+                     GMAD::FastList<GMAD::Element>::FastListIterator &i2)
+                     {return i1 == i2;});
   py::class_<GMAD::FastList<GMAD::Element>::FastListConstIterator>(m,"FastList_Element_FastListConstIterator");
   py::class_<GMAD::FastList<GMAD::Element>::FastMapIterator>(m,"FastList_Element_FastMapIterator");
   py::class_<GMAD::FastList<GMAD::Element>::FastMapConstIterator>(m,"FastList_Element_FastMapConstIterator");

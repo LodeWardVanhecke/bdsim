@@ -33,5 +33,17 @@ PYBIND11_MODULE(parser, m) {
 
        ///@{ Add value to front of temporary list
        .def("Store",[](GMAD::Parser &parser, double value) {parser.Store(value);})
-       .def("Store",[](GMAD::Parser &parser, const std::string& name) {parser.Store(name);});
+       .def("Store",[](GMAD::Parser &parser, const std::string& name) {parser.Store(name);})
+
+       //
+       .def("ClearParams",&GMAD::Parser::ClearParams)
+
+       //
+       .def("PrintBeamline", &GMAD::Parser::PrintBeamline)
+       .def("PrintElements", &GMAD::Parser::PrintElements)
+       .def("PrintOptions", &GMAD::Parser::PrintOptions)
+       //
+       .def("TryPrintingObject", &GMAD::Parser::TryPrintingObject)
+       //
+       .def("GetBeamline",&GMAD::Parser::GetBeamline);
 }
