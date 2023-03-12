@@ -4,6 +4,10 @@
 namespace py = pybind11;
 
 #include "parser.h"
+#include "beam.h"
+#include "element.h"
+#include "options.h"
+#include "region.h"
 
 PYBIND11_MODULE(parser, m) {
     py::class_<GMAD::Parser>(m,"Parser")
@@ -37,8 +41,27 @@ PYBIND11_MODULE(parser, m) {
 
        //
        .def("ClearParams",&GMAD::Parser::ClearParams)
+       // .def("SetValue_Beam",[](GMAD::Parser &parser,std::string property, GMAD::Beam &beam) {parser.SetValue<GMAD::Beam, GMAD::Beam>(property,beam);})
+       .def("GetGlobal_Beam",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Beam>();})
+       .def("GetGlobal_Parameters",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Parameters>();})
+       .def("GetGlobal_Options",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Options>();})
+       .def("GetGlobal_Region",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Region>();})
+       .def("GetGlobal_NewColour",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::NewColour>();})
+       .def("GetGlobal_Crystal",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Crystal>();})
+       .def("GetGlobal_Field",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Field>();})
+       .def("GetGlobal_Query",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Query>();})
+       .def("GetGlobal_Atom",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Atom>();})
+       .def("GetGlobal_Material",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Material>();})
+       .def("GetGlobal_Tunnel",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Tunnel>();})
+       .def("GetGlobal_CavityModel",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::CavityModel>();})
+       .def("GetGlobal_Scorer",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Scorer>();})
+       .def("GetGlobal_ScorerMesh",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::ScorerMesh>();})
+       .def("GetGlobal_Placement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Placement>();})
+       .def("GetGlobal_SpamplerPlacement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::SamplerPlacement>();})
+       .def("GetGlobal_BLMPlacement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::BLMPlacement>();})
+       .def("GetGlobal_Aperture",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Aperture>();})
 
-       //
+
        .def("PrintBeamline", &GMAD::Parser::PrintBeamline)
        .def("PrintElements", &GMAD::Parser::PrintElements)
        .def("PrintOptions", &GMAD::Parser::PrintOptions)

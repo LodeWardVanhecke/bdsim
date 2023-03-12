@@ -3,6 +3,12 @@ find_package(pybind11 CONFIG REQUIRED)
 # glob python binding sources
 file(GLOB GMAD_PARSER_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
 
+pybind11_add_module(aperture ${CMAKE_CURRENT_SOURCE_DIR}/aperturePybind.cc)
+target_link_libraries(aperture PUBLIC ${GMAD_LIB_NAME} Python::Module)
+
+pybind11_add_module(array ${CMAKE_CURRENT_SOURCE_DIR}/arrayPybind.cc)
+target_link_libraries(array PUBLIC ${GMAD_LIB_NAME} Python::Module)
+
 pybind11_add_module(element ${CMAKE_CURRENT_SOURCE_DIR}/elementPybind.cc)
 target_link_libraries(element PUBLIC ${GMAD_LIB_NAME} Python::Module)
 
@@ -14,3 +20,6 @@ target_link_libraries(fastlist PUBLIC ${GMAD_LIB_NAME} Python::Module)
 
 pybind11_add_module(parser ${CMAKE_CURRENT_SOURCE_DIR}/parserPybind.cc)
 target_link_libraries(parser PUBLIC ${GMAD_LIB_NAME} Python::Module)
+
+pybind11_add_module(sym_table ${CMAKE_CURRENT_SOURCE_DIR}/sym_tablePybind.cc)
+target_link_libraries(sym_table PUBLIC ${GMAD_LIB_NAME} Python::Module)
