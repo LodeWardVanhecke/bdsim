@@ -5,6 +5,7 @@ file(GLOB GMAD_PARSER_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
 
 pybind11_add_module(aperture ${CMAKE_CURRENT_SOURCE_DIR}/aperturePybind.cc)
 target_link_libraries(aperture PUBLIC ${GMAD_LIB_NAME} Python::Module)
+set_property(TARGET aperture PROPERTY CXX_VISIBILITY_PRESET "default")
 
 pybind11_add_module(array ${CMAKE_CURRENT_SOURCE_DIR}/arrayPybind.cc)
 target_link_libraries(array PUBLIC ${GMAD_LIB_NAME} Python::Module)
