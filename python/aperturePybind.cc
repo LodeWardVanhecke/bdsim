@@ -26,6 +26,6 @@ PYBIND11_MODULE(aperture, m) {
     .def("set_value",[](GMAD::Aperture &aperture,std::string name,std::string value) {aperture.set_value<std::string>(name,value);})
     .def("set_value",[](GMAD::Aperture &aperture,std::string name,int value) {aperture.set_value<int>(name,value);})
     .def("set_value",[](GMAD::Aperture &aperture,std::string name,bool value) {aperture.set_value<bool>(name,value);})
-    .def("set_value",[](GMAD::Aperture &aperture,std::string name,long int value) {aperture.set_value<bool>(name,value);})
+    .def("set_value",[](GMAD::Aperture &aperture,std::string name,long int value) {aperture.set_value<long int>(name,value);})
     .def("set_value",[](GMAD::Aperture &aperture,std::string name,double value) {aperture.set_value<double>(name,value);});
 }
