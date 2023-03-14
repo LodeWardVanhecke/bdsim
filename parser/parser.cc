@@ -63,6 +63,7 @@ namespace {
 namespace GMAD {
   // Explicitly make the templates we need here
   template void Parser::Add<Atom, FastList<Atom> >();
+  template void Parser::Add<Aperture, FastList<Aperture> >();
 
   template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >(bool unique, const std::string& className);
   template void Parser::Add<CavityModel, FastList<CavityModel> >(bool unique, const std::string& className);
@@ -110,7 +111,12 @@ Parser* Parser::Instance(const std::string& name)
       std::cerr << "Warning parser was already initialized!" << std::endl;
       delete instance;
     }
-  instance = new Parser(name);
+  if (name != "") {
+      instance = new Parser(name);
+  }
+  else
+      instance = new Parser();
+
   return instance;
 }
 
@@ -154,6 +160,15 @@ Parser::Parser(std::string name)
 
   ParseFile(f);
 }
+
+Parser::Parser()
+{
+    Initialise();
+    std::cout.precision(10); // set output precision to 10 decimals
+
+}
+
+
 
 void Parser::ParseFile(FILE *f)
 {
@@ -953,6 +968,9 @@ namespace GMAD {
   Atom& Parser::GetGlobal(){return atom;}
 
   template<>
+  Atom* Parser::GetGlobalPtr(){return &atom;}
+
+  template<>
   FastList<Atom>& Parser::GetList<Atom>(){return atom_list;}
 
   template<>
@@ -1019,8 +1037,11 @@ namespace GMAD {
   Aperture& Parser::GetGlobal() {return aperture;}
 
   template<>
+  Aperture* Parser::GetGlobalPtr(){return &aperture;}
+
+  template<>
   FastList<Aperture>& Parser::GetList<Aperture>() {return aperture_list;}
-  
+
   template<>
   void Parser::ExtendValue(const std::string& property, double value)
   {extendedNumbers[property]=value;}

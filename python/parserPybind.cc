@@ -6,6 +6,7 @@ namespace py = pybind11;
 #include "parser.h"
 
 #include "atom.h"
+#include "aperture.h"
 #include "beam.h"
 #include "element.h"
 #include "options.h"
@@ -46,7 +47,14 @@ PYBIND11_MODULE(parser, m) {
        .def("ClearParams",&GMAD::Parser::ClearParams)
 
        .def("Add_Atom",[](GMAD::Parser *parser) {parser->Add<GMAD::Atom, GMAD::FastList<GMAD::Atom>>();})
+       .def("Add_Aperture",[](GMAD::Parser *parser) {parser->Add<GMAD::Aperture, GMAD::FastList<GMAD::Aperture>>();})
+
        .def("Add_Atom",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Atom, GMAD::FastList<GMAD::Atom>>(unique, className);})
+       .def("Add_Aperture",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Aperture, GMAD::FastList<GMAD::Aperture>>(unique, className);})
+
+       .def("GetGlobal_Atom",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Atom>();}, py::return_value_policy::automatic_reference)
+       .def("GetGlobal_Aperture",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Aperture>();})
+
 
        .def("GetGlobal_Beam",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Beam>();})
        .def("GetGlobal_Parameters",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Parameters>();})
@@ -56,7 +64,6 @@ PYBIND11_MODULE(parser, m) {
        .def("GetGlobal_Crystal",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Crystal>();})
        .def("GetGlobal_Field",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Field>();})
        .def("GetGlobal_Query",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Query>();})
-       .def("GetGlobal_Atom",[](GMAD::Parser *parser) {return parser->GetGlobal<GMAD::Atom>();}, py::keep_alive<0, 1>())
        .def("GetGlobal_Material",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Material>();})
        .def("GetGlobal_Tunnel",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Tunnel>();})
        .def("GetGlobal_CavityModel",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::CavityModel>();})
@@ -65,9 +72,13 @@ PYBIND11_MODULE(parser, m) {
        .def("GetGlobal_Placement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Placement>();})
        .def("GetGlobal_SpamplerPlacement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::SamplerPlacement>();})
        .def("GetGlobal_BLMPlacement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::BLMPlacement>();})
-       .def("GetGlobal_Aperture",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Aperture>();})
 
        .def("GetList_Atom",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Atom, GMAD::FastList<GMAD::Atom>>();})
+       .def("GetList_Aperture",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Aperture, GMAD::FastList<GMAD::Aperture>>();})
+
+
+       .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, std::string value ) {parser.SetValue<GMAD::Atom,std::string>(property, value);})
+       .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, double value ) {parser.SetValue<GMAD::Atom,double>(property, value);})
 
        .def("PrintBeamline", &GMAD::Parser::PrintBeamline)
        .def("PrintElements", &GMAD::Parser::PrintElements)
