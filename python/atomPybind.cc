@@ -9,6 +9,9 @@ namespace py = pybind11;
 
 #include "atom.h"
 
+PYBIND11_MAKE_OPAQUE(GMAD::Atom);
+PYBIND11_MAKE_OPAQUE(GMAD::Published<GMAD::Atom>);
+
 PYBIND11_MODULE(atom, m) {
 py::class_<GMAD::Published<GMAD::Atom>>(m,"PublishedAtom")
 .def("NameExists",&GMAD::Atom::NameExists);

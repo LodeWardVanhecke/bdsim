@@ -3,10 +3,19 @@
 #include <pybind11/stl.h>
 namespace py = pybind11;
 
+#include "atom.h"
 #include "element.h"
 #include "fastlist.h"
 
+PYBIND11_MAKE_OPAQUE(GMAD::FastList<GMAD::Atom>);
+
 PYBIND11_MODULE(fastlist, m) {
+
+  py::class_<GMAD::FastList<GMAD::Atom>>(m,"FastList_Atom")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Atom> &s)
+                        { return py::make_iterator(s.begin(), s.end()); },
+                        py::keep_alive<0,1>());
 
   py::class_<GMAD::FastList<GMAD::Element>>(m,"FastList_Element")
     .def(py::init<>())

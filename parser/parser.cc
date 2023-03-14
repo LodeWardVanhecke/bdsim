@@ -62,6 +62,8 @@ namespace {
 
 namespace GMAD {
   // Explicitly make the templates we need here
+  template void Parser::Add<Atom, FastList<Atom> >();
+
   template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >(bool unique, const std::string& className);
   template void Parser::Add<CavityModel, FastList<CavityModel> >(bool unique, const std::string& className);
   template void Parser::Add<BLMPlacement, FastList<BLMPlacement> >(bool unique, const std::string& className);

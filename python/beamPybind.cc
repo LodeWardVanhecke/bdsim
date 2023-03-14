@@ -11,6 +11,9 @@ namespace py = pybind11;
 #include "beamBase.h"
 
 PYBIND11_MODULE(beam, m) {
+
+py::register_exception<std::runtime_error>(m, "PyExp", PyExc_RuntimeError);
+
 py::class_<GMAD::BeamBase>(m,"BeamBase")
 .def(py::init<>())
 .def_readwrite("particle", &GMAD::BeamBase::particle)
@@ -107,7 +110,7 @@ py::class_<GMAD::Published<GMAD::BeamBase>>(m,"PublishedBeamBase")
 py::class_<GMAD::Beam, GMAD::Published<GMAD::BeamBase>, GMAD::BeamBase>(m,"Beam")
 .def(py::init<>())
 .def("set_value",[](GMAD::Beam &beam,std::string name,std::string value) {beam.set_value<std::string>(name,value);})
-.def("set_value",[](GMAD::Beam &beam,std::string name,int value) {beam.set_value<int>(name,value);})
+.def("set_value",[](GMAD::Beam &beam,std::string name,int value) {beam.set_value<int>(name, value);})
 .def("set_value",[](GMAD::Beam &beam,std::string name,bool value) {beam.set_value<bool>(name,value);})
 .def("set_value",[](GMAD::Beam &beam,std::string name,long int value) {beam.set_value<long int>(name,value);})
 .def("set_value",[](GMAD::Beam &beam,std::string name,double value) {beam.set_value<double>(name,value);});
