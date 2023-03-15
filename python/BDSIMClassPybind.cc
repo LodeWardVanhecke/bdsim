@@ -22,8 +22,8 @@ py::class_<BDSIM>(m,"BDSIM")
             cstrs.reserve(args.size());
             for (auto &s: args) cstrs.push_back(const_cast<char *>(s.c_str()));
             return new BDSIM(args.size(), cstrs.data(), usualPrintOut);
-        }));
-    //.def("Initialised",&BDSIM::Initialised)
-    //.def("InitialisationResult",&BDSIM::InitialisationResult)
-   // .def("BeamOn",&BDSIM::BeamOn);
+        }))
+    .def("Initialised",&BDSIM::Initialised)
+    .def("InitialisationResult",&BDSIM::InitialisationResult)
+    .def("BeamOn",&BDSIM::BeamOn);
 }

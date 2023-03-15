@@ -46,3 +46,11 @@ set_property(TARGET sym_table PROPERTY CXX_VISIBILITY_PRESET "default")
 pybind11_add_module(bdsimclass ${CMAKE_CURRENT_SOURCE_DIR}/BDSIMClassPybind.cc)
 target_link_libraries(bdsimclass PUBLIC ${GMAD_LIB_NAME} ${BDSIM_LIB_NAME} Python::Module)
 target_include_directories(bdsimclass PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include/)
+
+pybind11_add_module(bdsexecoptions ${CMAKE_CURRENT_SOURCE_DIR}/BDSExecOptionsPybind.cc)
+target_link_libraries(bdsexecoptions PUBLIC ${GMAD_LIB_NAME} ${BDSIM_LIB_NAME} Python::Module)
+target_include_directories(bdsexecoptions PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include/)
+
+pybind11_add_module(bdsparser ${CMAKE_CURRENT_SOURCE_DIR}/BDSParserPybind.cc)
+target_link_libraries(bdsparser PUBLIC ${GMAD_LIB_NAME} ${BDSIM_LIB_NAME} Python::Module)
+target_include_directories(bdsparser PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include/)
