@@ -48,15 +48,20 @@ PYBIND11_MODULE(parser, m) {
 
        .def("Add_Atom",[](GMAD::Parser *parser) {parser->Add<GMAD::Atom, GMAD::FastList<GMAD::Atom>>();})
        .def("Add_Aperture",[](GMAD::Parser *parser) {parser->Add<GMAD::Aperture, GMAD::FastList<GMAD::Aperture>>();})
+       //.def("Add_Beam",[](GMAD::Parser *parser) {parser->Add<GMAD::Beam, GMAD::FastList<GMAD::Beam>>();})
+       .def("Add_BLMPlacement",[](GMAD::Parser *parser) {parser->Add<GMAD::BLMPlacement, GMAD::FastList<GMAD::BLMPlacement>>();})
+
 
        .def("Add_Atom",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Atom, GMAD::FastList<GMAD::Atom>>(unique, className);})
        .def("Add_Aperture",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Aperture, GMAD::FastList<GMAD::Aperture>>(unique, className);})
+       //.def("Add_Beam",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Beam, GMAD::FastList<GMAD::Beam>>(unique, className);})
+       .def("Add_BLMPlacement",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::BLMPlacement, GMAD::FastList<GMAD::BLMPlacement>>(unique, className);})
 
        .def("GetGlobal_Atom",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Atom>();}, py::return_value_policy::automatic_reference)
        .def("GetGlobal_Aperture",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Aperture>();})
+       .def("GetGlobal_Beam",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Beam>();})
+       .def("GetGlobal_BLMPlacement",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::BLMPlacement>();})
 
-
-       .def("GetGlobal_Beam",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Beam>();})
        .def("GetGlobal_Parameters",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Parameters>();})
        .def("GetGlobal_Options",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Options>();})
        .def("GetGlobal_Region",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Region>();})
@@ -71,11 +76,10 @@ PYBIND11_MODULE(parser, m) {
        .def("GetGlobal_ScorerMesh",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::ScorerMesh>();})
        .def("GetGlobal_Placement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Placement>();})
        .def("GetGlobal_SpamplerPlacement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::SamplerPlacement>();})
-       .def("GetGlobal_BLMPlacement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::BLMPlacement>();})
 
        .def("GetList_Atom",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Atom, GMAD::FastList<GMAD::Atom>>();})
        .def("GetList_Aperture",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Aperture, GMAD::FastList<GMAD::Aperture>>();})
-
+       .def("GetList_BLMPlacement",[](GMAD::Parser *parser) {return parser->GetList<GMAD::BLMPlacement, GMAD::FastList<GMAD::BLMPlacement>>();})
 
        .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, std::string value ) {parser.SetValue<GMAD::Atom,std::string>(property, value);})
        .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, double value ) {parser.SetValue<GMAD::Atom,double>(property, value);})

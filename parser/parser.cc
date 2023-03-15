@@ -64,6 +64,8 @@ namespace GMAD {
   // Explicitly make the templates we need here
   template void Parser::Add<Atom, FastList<Atom> >();
   template void Parser::Add<Aperture, FastList<Aperture> >();
+  //template void Parser::Add<Beam, FastList<Beam> >();
+  template void Parser::Add<BLMPlacement, FastList<BLMPlacement> >();
 
   template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >(bool unique, const std::string& className);
   template void Parser::Add<CavityModel, FastList<CavityModel> >(bool unique, const std::string& className);
@@ -927,7 +929,10 @@ const FastList<Element>& Parser::GetBeamline()const
 namespace GMAD {
   template<>
   Beam& Parser::GetGlobal(){return beam;}
-  
+
+  template<>
+  Beam* Parser::GetGlobalPtr(){return &beam;}
+
   template<>
   Parameters& Parser::GetGlobal(){return params;}
 
@@ -1023,6 +1028,9 @@ namespace GMAD {
 
   template<>
   BLMPlacement& Parser::GetGlobal() {return blm;}
+
+  template<>
+  BLMPlacement* Parser::GetGlobalPtr() {return &blm;}
 
   template<>
   FastList<BLMPlacement>& Parser::GetList<BLMPlacement>() {return blm_list;}
