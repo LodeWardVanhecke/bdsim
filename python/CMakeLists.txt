@@ -23,6 +23,14 @@ pybind11_add_module(blmplacement ${CMAKE_CURRENT_SOURCE_DIR}/blmplacementPybind.
 target_link_libraries(blmplacement PUBLIC ${GMAD_LIB_NAME} Python::Module)
 set_property(TARGET blmplacement PROPERTY CXX_VISIBILITY_PRESET "default")
 
+pybind11_add_module(cavitymodel ${CMAKE_CURRENT_SOURCE_DIR}/cavitymodelPybind.cc)
+target_link_libraries(cavitymodel PUBLIC ${GMAD_LIB_NAME} Python::Module)
+set_property(TARGET cavitymodel PROPERTY CXX_VISIBILITY_PRESET "default")
+
+pybind11_add_module(crystal ${CMAKE_CURRENT_SOURCE_DIR}/crystalPybind.cc)
+target_link_libraries(crystal PUBLIC ${GMAD_LIB_NAME} Python::Module)
+set_property(TARGET crystal PROPERTY CXX_VISIBILITY_PRESET "default")
+
 pybind11_add_module(element ${CMAKE_CURRENT_SOURCE_DIR}/elementPybind.cc)
 target_link_libraries(element PUBLIC ${GMAD_LIB_NAME} Python::Module)
 set_property(TARGET element PROPERTY CXX_VISIBILITY_PRESET "default")
@@ -34,6 +42,10 @@ set_property(TARGET elementtype PROPERTY CXX_VISIBILITY_PRESET "default")
 pybind11_add_module(fastlist ${CMAKE_CURRENT_SOURCE_DIR}/fastlistPybind.cc)
 target_link_libraries(fastlist PUBLIC ${GMAD_LIB_NAME} Python::Module)
 set_property(TARGET fastlist PROPERTY CXX_VISIBILITY_PRESET "default")
+
+pybind11_add_module(field ${CMAKE_CURRENT_SOURCE_DIR}/fieldPybind.cc)
+target_link_libraries(field PUBLIC ${GMAD_LIB_NAME} Python::Module)
+set_property(TARGET field PROPERTY CXX_VISIBILITY_PRESET "default")
 
 pybind11_add_module(parser ${CMAKE_CURRENT_SOURCE_DIR}/parserPybind.cc)
 target_link_libraries(parser PUBLIC ${GMAD_LIB_NAME} Python::Module)

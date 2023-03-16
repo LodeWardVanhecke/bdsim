@@ -64,22 +64,26 @@ namespace GMAD {
   // Explicitly make the templates we need here
   template void Parser::Add<Atom, FastList<Atom> >();
   template void Parser::Add<Aperture, FastList<Aperture> >();
-  //template void Parser::Add<Beam, FastList<Beam> >();
   template void Parser::Add<BLMPlacement, FastList<BLMPlacement> >();
+  template void Parser::Add<CavityModel, FastList<CavityModel> >();
+  template void Parser::Add<Crystal, FastList<Crystal> >();
+  template void Parser::Add<Field, FastList<Field> >();
+
+  template void Parser::Add<Atom, FastList<Atom> >(bool unique, const std::string& className);
+  template void Parser::Add<Aperture, FastList<Aperture> >(bool unique, const std::string& className);
+  template void Parser::Add<BLMPlacement, FastList<BLMPlacement> >(bool unique, const std::string& className);
+  template void Parser::Add<CavityModel, FastList<CavityModel> >(bool unique, const std::string& className);
+  template void Parser::Add<Crystal, FastList<Crystal> >(bool unique, const std::string& className);
+  template void Parser::Add<Field, FastList<Field> >(bool unique, const std::string& className);
 
   template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >(bool unique, const std::string& className);
-  template void Parser::Add<CavityModel, FastList<CavityModel> >(bool unique, const std::string& className);
-  template void Parser::Add<BLMPlacement, FastList<BLMPlacement> >(bool unique, const std::string& className);
   template void Parser::Add<Modulator, FastList<Modulator> >(bool unique, const std::string& className);
   template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >(bool unique, const std::string& className);
-  template void Parser::Add<Atom, FastList<Atom> >(bool unique, const std::string& className);
-  template void Parser::Add<Field, FastList<Field> >(bool unique, const std::string& className);
   template void Parser::Add<Query, FastList<Query> >(bool unique, const std::string& className);
   template void Parser::Add<Region, FastList<Region> >(bool unique, const std::string& className);
   template void Parser::Add<Scorer, FastList<Scorer> >(bool unique, const std::string& className);
+  template void Parser::Add<Scorer, FastList<Scorer> >(bool unique, const std::string& className);
   template void Parser::Add<Tunnel, FastList<Tunnel> >(bool unique, const std::string& className);
-  template void Parser::Add<Crystal, FastList<Crystal> >(bool unique, const std::string& className);
-  template void Parser::Add<Aperture, FastList<Aperture> >(bool unique, const std::string& className);
   template void Parser::Add<Material, FastList<Material> >(bool unique, const std::string& className);
   template void Parser::Add<NewColour, FastList<NewColour> >(bool unique, const std::string& className);
   template void Parser::Add<PhysicsBiasing, FastList<PhysicsBiasing> >(bool unique, const std::string& className);
@@ -955,10 +959,16 @@ namespace GMAD {
   Crystal& Parser::GetGlobal(){return crystal;}
 
   template<>
+  Crystal* Parser::GetGlobalPtr(){return &crystal;}
+
+  template<>
   FastList<Crystal>& Parser::GetList<Crystal>(){return crystal_list;}
   
   template<>
   Field& Parser::GetGlobal(){return field;}
+
+  template<>
+  Field* Parser::GetGlobalPtr(){return &field;}
 
   template<>
   FastList<Field>& Parser::GetList<Field>(){return field_list;}
@@ -992,6 +1002,9 @@ namespace GMAD {
 
   template<>
   CavityModel& Parser::GetGlobal(){return cavitymodel;}
+
+  template<>
+  CavityModel* Parser::GetGlobalPtr(){return &cavitymodel;}
 
   template<>
   FastList<CavityModel>& Parser::GetList<CavityModel>(){return cavitymodel_list;}

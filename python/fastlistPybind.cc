@@ -6,6 +6,8 @@ namespace py = pybind11;
 #include "atom.h"
 #include "aperture.h"
 #include "blmplacement.h"
+#include "cavitymodel.h"
+#include "crystal.h"
 #include "element.h"
 #include "fastlist.h"
 
@@ -28,6 +30,18 @@ PYBIND11_MODULE(fastlist, m) {
   py::class_<GMAD::FastList<GMAD::BLMPlacement>>(m,"FastList_BLMPlacement")
     .def(py::init<>())
     .def("__iter__", [](const GMAD::FastList<GMAD::BLMPlacement> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::CavityModel>>(m,"FastList_CavityModel")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::CavityModel> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::Crystal>>(m,"FastList_Crystal")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Crystal> &s)
     { return py::make_iterator(s.begin(), s.end()); },
     py::keep_alive<0,1>());
 
