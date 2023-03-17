@@ -49,9 +49,9 @@ PYBIND11_MODULE(field, m) {
   .def_readwrite("fieldParameters", &GMAD::Field::fieldParameters)
   .def("clear",&GMAD::Field::clear)
   .def("print",&GMAD::Field::print)
-  .def("set_value",[](GMAD::Field &field,std::string name,std::string value) {field.set_value<std::string>(name,value);})
-  .def("set_value",[](GMAD::Field &field,std::string name,int value) {field.set_value<int>(name,value);})
-  .def("set_value",[](GMAD::Field &field,std::string name,bool value) {field.set_value<bool>(name,value);})
-  .def("set_value",[](GMAD::Field &field,std::string name,long int value) {field.set_value<long int>(name,value);})
-  .def("set_value",[](GMAD::Field &field,std::string name,double value) {field.set_value<double>(name,value);});
+  .def("set_value",[](GMAD::Field &field,std::string name,std::string value) {field.set_value<std::string>(name,value, false);})
+  .def("set_value",[](GMAD::Field &field,std::string name,int value) {field.set_value<int>(name,value, false);})
+  .def("set_value",[](GMAD::Field &field,std::string name,bool value) {field.set_value<bool>(name,value, false);})
+  .def("set_value",[](GMAD::Field &field,std::string name,long int value) {field.set_value<long int>(name,value, false);})
+  .def("set_value",[](GMAD::Field &field,std::string name,double value) {field.set_value<double>(name,value, false);});
 }
