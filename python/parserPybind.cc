@@ -12,6 +12,7 @@ namespace py = pybind11;
 #include "options.h"
 #include "region.h"
 #include "fastlist.h"
+#include "physicsbiasing.h"
 
 PYBIND11_MODULE(parser, m) {
     py::class_<GMAD::Parser>(m,"Parser")
@@ -52,6 +53,9 @@ PYBIND11_MODULE(parser, m) {
        .def("Add_CavityModel",[](GMAD::Parser *parser) {parser->Add<GMAD::CavityModel, GMAD::FastList<GMAD::CavityModel>>();})
        .def("Add_Crystal",[](GMAD::Parser *parser) {parser->Add<GMAD::Crystal, GMAD::FastList<GMAD::Crystal>>();})
        .def("Add_Field",[](GMAD::Parser *parser) {parser->Add<GMAD::Field, GMAD::FastList<GMAD::Field>>();})
+       .def("Add_Material",[](GMAD::Parser *parser) {parser->Add<GMAD::Material, GMAD::FastList<GMAD::Material>>();})
+       .def("Add_NewColour",[](GMAD::Parser *parser) {parser->Add<GMAD::NewColour, GMAD::FastList<GMAD::NewColour>>();})
+       .def("Add_PhysicsBiasing",[](GMAD::Parser *parser) {parser->Add<GMAD::PhysicsBiasing, GMAD::FastList<GMAD::PhysicsBiasing>>();})
 
        .def("Add_Atom",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Atom, GMAD::FastList<GMAD::Atom>>(unique, className);})
        .def("Add_Aperture",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Aperture, GMAD::FastList<GMAD::Aperture>>(unique, className);})
@@ -59,18 +63,23 @@ PYBIND11_MODULE(parser, m) {
        .def("Add_CavityModel",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::CavityModel, GMAD::FastList<GMAD::CavityModel>>(unique, className);})
        .def("Add_Crystal",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Crystal, GMAD::FastList<GMAD::Crystal>>(unique, className);})
        .def("Add_Field",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Field, GMAD::FastList<GMAD::Field>>(unique, className);})
+       .def("Add_Material",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Material, GMAD::FastList<GMAD::Material>>(unique, className);})
+       .def("Add_NewColour",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::NewColour, GMAD::FastList<GMAD::NewColour>>(unique, className);})
+       .def("Add_PhysicsBiasing",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::PhysicsBiasing, GMAD::FastList<GMAD::PhysicsBiasing>>(unique, className);})
 
-       .def("GetGlobal_Atom",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Atom>();}, py::return_value_policy::automatic_reference)
+       .def("GetGlobal_Atom",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Atom>();})
        .def("GetGlobal_Aperture",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Aperture>();})
        .def("GetGlobal_Beam",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Beam>();})
        .def("GetGlobal_BLMPlacement",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::BLMPlacement>();})
        .def("GetGlobal_CavityModel",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::CavityModel>();})
-       .def("GetGlobal_Crystal",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Crystal>();})
+       .def("GetGlobal_Crystal",[](GMAD::Parser parser) {return parser.GetGlobalPtr<GMAD::Crystal>();})
        .def("GetGlobal_Field",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Field>();})
+       .def("GetGlobal_Material",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Material>();})
+       .def("GetGlobal_NewColour",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::NewColour>();})
+       .def("GetGlobal_Options",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Options>();})
+       .def("GetGlobal_PhysicsBias",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::PhysicsBiasing>();})
 
-       .def("GetGlobal_Material",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Material>();})
-       .def("GetGlobal_NewColour",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::NewColour>();})
-       .def("GetGlobal_Options",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Options>();})
+
        .def("GetGlobal_Parameters",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Parameters>();})
        .def("GetGlobal_Placement",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Placement>();})
        .def("GetGlobal_Query",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Query>();})
@@ -86,6 +95,9 @@ PYBIND11_MODULE(parser, m) {
        .def("GetList_CavityModel",[](GMAD::Parser *parser) {return parser->GetList<GMAD::CavityModel, GMAD::FastList<GMAD::CavityModel>>();})
        .def("GetList_Crystal",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Crystal, GMAD::FastList<GMAD::Crystal>>();})
        .def("GetList_Field",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Field, GMAD::FastList<GMAD::Field>>();})
+       .def("GetList_Material",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Material, GMAD::FastList<GMAD::Material>>();})
+       .def("GetList_NewColour",[](GMAD::Parser *parser) {return parser->GetList<GMAD::NewColour, GMAD::FastList<GMAD::NewColour>>();})
+       .def("GetList_PhysicsBias",[](GMAD::Parser *parser) {return parser->GetList<GMAD::PhysicsBiasing, GMAD::FastList<GMAD::PhysicsBiasing>>();})
 
        .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, std::string value ) {parser.SetValue<GMAD::Atom,std::string>(property, value);})
        .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, double value ) {parser.SetValue<GMAD::Atom,double>(property, value);})

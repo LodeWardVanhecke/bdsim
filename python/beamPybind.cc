@@ -12,8 +12,6 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(beam, m) {
 
-py::register_exception<std::runtime_error>(m, "PyExp", PyExc_RuntimeError);
-
 py::class_<GMAD::BeamBase>(m,"BeamBase")
 .def(py::init<>())
 .def_readwrite("particle", &GMAD::BeamBase::particle)

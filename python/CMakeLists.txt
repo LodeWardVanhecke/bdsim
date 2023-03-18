@@ -5,7 +5,8 @@ file(GLOB GMAD_PARSER_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
 
 list(APPEND pythonBindingSrcs
         aperture array atom beam blmplacement cavitymodel
-        crystal element fastlist field parser sym_table)
+        crystal element fastlist field material newcolour options parser
+        physicsbiasing sym_table)
 
 list(APPEND rootBindingSrcs
         bdsimclass bdsexecoptions bdsparser)

@@ -74,5 +74,125 @@ PYBIND11_MODULE(element, m) {
     .def_readwrite("aper4", &GMAD::Element::aper4)
     .def_readwrite("apertureType", &GMAD::Element::apertureType)
     .def_readwrite("beampipeMaterial", &GMAD::Element::beampipeMaterial)
-    .def_readwrite("vacuumMaterial", &GMAD::Element::vacuumMaterial);
+    .def_readwrite("vacuumMaterial", &GMAD::Element::vacuumMaterial)
+
+    .def_readwrite("magnetGeometryType", &GMAD::Element::magnetGeometryType)
+    .def_readwrite("horizontalWidth", &GMAD::Element::horizontalWidth)
+    .def_readwrite("yokeOnInside", &GMAD::Element::yokeOnInside)
+    .def_readwrite("hStyle", &GMAD::Element::hStyle)
+    .def_readwrite("vhRatio", &GMAD::Element::vhRatio)
+    .def_readwrite("coilWidthFraction", &GMAD::Element::coilWidthFraction)
+    .def_readwrite("coilHeightFraction", &GMAD::Element::coilHeightFraction)
+    .def_readwrite("tilt", &GMAD::Element::tilt)
+    .def_readwrite("xsize", &GMAD::Element::xsize)
+    .def_readwrite("ysize", &GMAD::Element::ysize)
+    .def_readwrite("xsizeOut", &GMAD::Element::xsizeOut)
+    .def_readwrite("ysizeOut", &GMAD::Element::ysizeOut)
+    .def_readwrite("xsizeLeft", &GMAD::Element::xsizeLeft)
+    .def_readwrite("xsizeRight", &GMAD::Element::xsizeRight)
+    .def_readwrite("jawTiltLeft", &GMAD::Element::jawTiltLeft)
+    .def_readwrite("jawTiltRight", &GMAD::Element::jawTiltRight)
+    .def_readwrite("offsetX", &GMAD::Element::offsetX)
+    .def_readwrite("offsetY", &GMAD::Element::offsetY)
+
+    .def_readwrite("tscint", &GMAD::Element::tscint)
+    .def_readwrite("twindow", &GMAD::Element::twindow)
+    .def_readwrite("tmount", &GMAD::Element::tmount)
+    .def_readwrite("windowScreenGap", &GMAD::Element::windowScreenGap)
+    .def_readwrite("screenXSize", &GMAD::Element::screenXSize)
+    .def_readwrite("screenYSize", &GMAD::Element::screenYSize)
+
+    .def_readwrite("layerThicknesses", &GMAD::Element::layerThicknesses)
+    .def_readwrite("layerMaterials", &GMAD::Element::layerMaterials)
+    .def_readwrite("layerIsSampler", &GMAD::Element::layerIsSampler)
+
+    .def_readwrite("screenPSize", &GMAD::Element::screenPSize)
+    .def_readwrite("screenEndZ", &GMAD::Element::screenEndZ)
+    .def_readwrite("poleStartZ", &GMAD::Element::poleStartZ)
+    .def_readwrite("screenWidth", &GMAD::Element::screenWidth)
+    .def_readwrite("awakeMagnetOffsetX", &GMAD::Element::awakeMagnetOffsetX)
+    .def_readwrite("windowmaterial", &GMAD::Element::windowmaterial)
+    .def_readwrite("scintmaterial", &GMAD::Element::scintmaterial)
+    .def_readwrite("mountmaterial", &GMAD::Element::mountmaterial)
+
+    .def_readwrite("xdir", &GMAD::Element::xdir)
+    .def_readwrite("ydir", &GMAD::Element::ydir)
+    .def_readwrite("zdir", &GMAD::Element::zdir)
+
+    .def_readwrite("waveLength", &GMAD::Element::waveLength)
+    .def_readwrite("phi", &GMAD::Element::phi)
+    .def_readwrite("theta", &GMAD::Element::theta)
+    .def_readwrite("psi", &GMAD::Element::psi)
+    .def_readwrite("axisX", &GMAD::Element::axisX)
+    .def_readwrite("axisY", &GMAD::Element::axisY)
+    .def_readwrite("axisZ", &GMAD::Element::axisZ)
+    .def_readwrite("axisAngle", &GMAD::Element::axisAngle)
+
+    .def_readwrite("numberWedges", &GMAD::Element::numberWedges)
+    .def_readwrite("wedgeLength", &GMAD::Element::wedgeLength)
+    .def_readwrite("degraderHeight", &GMAD::Element::degraderHeight)
+    .def_readwrite("materialThickness", &GMAD::Element::materialThickness)
+    .def_readwrite("degraderOffset", &GMAD::Element::degraderOffset)
+
+    .def_readwrite("wireDiameter", &GMAD::Element::wireDiameter)
+    .def_readwrite("wireLength", &GMAD::Element::wireLength)
+    .def_readwrite("wireOffsetX", &GMAD::Element::wireOffsetX)
+    .def_readwrite("wireOffsetY", &GMAD::Element::wireOffsetY)
+    .def_readwrite("wireOffsetZ", &GMAD::Element::wireOffsetZ)
+    .def_readwrite("wireAngle", &GMAD::Element::wireAngle)
+
+    .def_readwrite("undulatorPeriod", &GMAD::Element::undulatorPeriod)
+    .def_readwrite("undulatorGap", &GMAD::Element::undulatorGap)
+    .def_readwrite("undulatorMagnetHeight", &GMAD::Element::undulatorMagnetHeight)
+
+    .def_readwrite("bias", &GMAD::Element::bias)
+    .def_readwrite("biasMaterial", &GMAD::Element::biasMaterial)
+    .def_readwrite("biasVacuum", &GMAD::Element::biasVacuum)
+
+    .def_readwrite("biasMaterialList", &GMAD::Element::biasMaterialList)
+    .def_readwrite("biasVacuumList", &GMAD::Element::biasVacuumList)
+
+    .def_readwrite("minimumKineticEnergy", &GMAD::Element::minimumKineticEnergy)
+
+    .def_readwrite("samplerName", &GMAD::Element::samplerName)
+    .def_readwrite("samplerType", &GMAD::Element::samplerType)
+    .def_readwrite("samplerRadius", &GMAD::Element::samplerRadius)
+
+    .def_readwrite("samplerParticleSetID", &GMAD::Element::samplerParticleSetID)
+
+    .def_readwrite("region", &GMAD::Element::region)
+    .def_readwrite("fieldOuter", &GMAD::Element::fieldOuter)
+    .def_readwrite("fieldVacuum", &GMAD::Element::fieldVacuum)
+    .def_readwrite("fieldAll", &GMAD::Element::fieldAll)
+
+    .def_readwrite("geometryFile", &GMAD::Element::geometryFile)
+    .def_readwrite("stripOuterVolume", &GMAD::Element::stripOuterVolume)
+    .def_readwrite("autoColour", &GMAD::Element::autoColour)
+
+    .def_readwrite("elementLengthIsArcLength", &GMAD::Element::elementLengthIsArcLength)
+
+    .def_readwrite("material", &GMAD::Element::material)
+    .def_readwrite("namedVacuumVolumes", &GMAD::Element::namedVacuumVolumes)
+    .def_readwrite("markAsCollimator", &GMAD::Element::markAsCollimator)
+    .def_readwrite("spec", &GMAD::Element::spec)
+    .def_readwrite("cavityModel", &GMAD::Element::cavityModel)
+    .def_readwrite("cavityFieldType", &GMAD::Element::cavityFieldType)
+
+    .def_readwrite("dicomDataPath", &GMAD::Element::dicomDataPath)
+    .def_readwrite("dicomDataFile", &GMAD::Element::dicomDataFile)
+
+    .def_readwrite("colour", &GMAD::Element::colour)
+
+    .def_readwrite("crystalLeft", &GMAD::Element::crystalLeft)
+    .def_readwrite("crystalRight", &GMAD::Element::crystalRight)
+    .def_readwrite("crystalBoth", &GMAD::Element::crystalBoth)
+    .def_readwrite("crystalAngleYAxisLeft", &GMAD::Element::crystalAngleYAxisLeft)
+    .def_readwrite("crystalAngleYAxisRight", &GMAD::Element::crystalAngleYAxisRight)
+
+    .def_readwrite("angleSet", &GMAD::Element::angleSet)
+
+    .def_readwrite("scalingFieldOuterSet", &GMAD::Element::scalingFieldOuterSet)
+
+    .def_readwrite("lst", &GMAD::Element::lst);
+
 }

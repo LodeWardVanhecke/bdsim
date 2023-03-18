@@ -68,6 +68,9 @@ namespace GMAD {
   template void Parser::Add<CavityModel, FastList<CavityModel> >();
   template void Parser::Add<Crystal, FastList<Crystal> >();
   template void Parser::Add<Field, FastList<Field> >();
+  template void Parser::Add<Material, FastList<Material> >();
+  template void Parser::Add<NewColour, FastList<NewColour> >();
+  template void Parser::Add<PhysicsBiasing, FastList<PhysicsBiasing> >();
 
   template void Parser::Add<Atom, FastList<Atom> >(bool unique, const std::string& className);
   template void Parser::Add<Aperture, FastList<Aperture> >(bool unique, const std::string& className);
@@ -75,18 +78,17 @@ namespace GMAD {
   template void Parser::Add<CavityModel, FastList<CavityModel> >(bool unique, const std::string& className);
   template void Parser::Add<Crystal, FastList<Crystal> >(bool unique, const std::string& className);
   template void Parser::Add<Field, FastList<Field> >(bool unique, const std::string& className);
-
-  template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >(bool unique, const std::string& className);
-  template void Parser::Add<Modulator, FastList<Modulator> >(bool unique, const std::string& className);
-  template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >(bool unique, const std::string& className);
-  template void Parser::Add<Query, FastList<Query> >(bool unique, const std::string& className);
-  template void Parser::Add<Region, FastList<Region> >(bool unique, const std::string& className);
-  template void Parser::Add<Scorer, FastList<Scorer> >(bool unique, const std::string& className);
-  template void Parser::Add<Scorer, FastList<Scorer> >(bool unique, const std::string& className);
-  template void Parser::Add<Tunnel, FastList<Tunnel> >(bool unique, const std::string& className);
   template void Parser::Add<Material, FastList<Material> >(bool unique, const std::string& className);
   template void Parser::Add<NewColour, FastList<NewColour> >(bool unique, const std::string& className);
   template void Parser::Add<PhysicsBiasing, FastList<PhysicsBiasing> >(bool unique, const std::string& className);
+
+  template void Parser::Add<Modulator, FastList<Modulator> >(bool unique, const std::string& className);
+  template void Parser::Add<Query, FastList<Query> >(bool unique, const std::string& className);
+  template void Parser::Add<Region, FastList<Region> >(bool unique, const std::string& className);
+  template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >(bool unique, const std::string& className);
+  template void Parser::Add<Scorer, FastList<Scorer> >(bool unique, const std::string& className);
+  template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >(bool unique, const std::string& className);
+  template void Parser::Add<Tunnel, FastList<Tunnel> >(bool unique, const std::string& className);
 }
 
 using namespace GMAD;
@@ -931,137 +933,124 @@ const FastList<Element>& Parser::GetBeamline()const
 //template specialisation
 // put explicitly in namespace since g++ complains
 namespace GMAD {
-  template<>
-  Beam& Parser::GetGlobal(){return beam;}
 
   template<>
+  Aperture& Parser::GetGlobal() {return aperture;}
+  template<>
+  Aperture* Parser::GetGlobalPtr(){return &aperture;}
+  template<>
+  FastList<Aperture>& Parser::GetList<Aperture>() {return aperture_list;}
+
+  template<>
+  Atom& Parser::GetGlobal(){return atom;}
+  template<>
+  Atom* Parser::GetGlobalPtr(){return &atom;}
+  template<>
+  FastList<Atom>& Parser::GetList<Atom>(){return atom_list;}
+
+  template<>
+  Beam& Parser::GetGlobal(){return beam;}
+  template<>
   Beam* Parser::GetGlobalPtr(){return &beam;}
+
+  template<>
+  BLMPlacement& Parser::GetGlobal() {return blm;}
+  template<>
+  BLMPlacement* Parser::GetGlobalPtr() {return &blm;}
+  template<>
+  FastList<BLMPlacement>& Parser::GetList<BLMPlacement>() {return blm_list;}
+
+  template<>
+  CavityModel& Parser::GetGlobal(){return cavitymodel;}
+  template<>
+  CavityModel* Parser::GetGlobalPtr(){return &cavitymodel;}
+  template<>
+  FastList<CavityModel>& Parser::GetList<CavityModel>(){return cavitymodel_list;}
+
+  template<>
+  Crystal& Parser::GetGlobal(){return crystal;}
+  template<>
+  Crystal* Parser::GetGlobalPtr(){return &crystal;}
+  template<>
+  FastList<Crystal>& Parser::GetList<Crystal>(){return crystal_list;}
+
+  template<>
+  Field& Parser::GetGlobal(){return field;}
+  template<>
+  Field* Parser::GetGlobalPtr(){return &field;}
+  template<>
+  FastList<Field>& Parser::GetList<Field>(){return field_list;}
+
+  template<>
+  Material& Parser::GetGlobal(){return material;}
+  template<>
+  Material* Parser::GetGlobalPtr(){return &material;}
+  template<>
+  FastList<Material>& Parser::GetList<Material>(){return material_list;}
+
+  template<>
+  NewColour& Parser::GetGlobal(){return colour;}
+  template<>
+  NewColour* Parser::GetGlobalPtr(){return &colour;}
+  template<>
+  FastList<NewColour>& Parser::GetList<NewColour>(){return colour_list;}
+
+  template<>
+  Options& Parser::GetGlobal(){return options;}
+  template<>
+  Options* Parser::GetGlobalPtr(){return &options;}
 
   template<>
   Parameters& Parser::GetGlobal(){return params;}
 
   template<>
-  Options& Parser::GetGlobal(){return options;}
+  PhysicsBiasing& Parser::GetGlobal(){return xsecbias;}
+  template<>
+  PhysicsBiasing* Parser::GetGlobalPtr(){return &xsecbias;}
+  template<>
+  FastList<PhysicsBiasing>& Parser::GetList<PhysicsBiasing, FastList<PhysicsBiasing>>(){return xsecbias_list;}
 
   template<>
   Region& Parser::GetGlobal(){return region;}
-
   template<>
   FastList<Region>& Parser::GetList<Region>(){return region_list;}
 
-  template<>
-  NewColour& Parser::GetGlobal(){return colour;}
 
-  template<>
-  FastList<NewColour>& Parser::GetList<NewColour>(){return colour_list;}
-  
-  template<>
-  Crystal& Parser::GetGlobal(){return crystal;}
-
-  template<>
-  Crystal* Parser::GetGlobalPtr(){return &crystal;}
-
-  template<>
-  FastList<Crystal>& Parser::GetList<Crystal>(){return crystal_list;}
-  
-  template<>
-  Field& Parser::GetGlobal(){return field;}
-
-  template<>
-  Field* Parser::GetGlobalPtr(){return &field;}
-
-  template<>
-  FastList<Field>& Parser::GetList<Field>(){return field_list;}
 
   template<>
   Query& Parser::GetGlobal(){return query;}
-  
   template<>
   FastList<Query>& Parser::GetList<Query>(){return query_list;}
-  
-  template<>
-  Atom& Parser::GetGlobal(){return atom;}
-
-  template<>
-  Atom* Parser::GetGlobalPtr(){return &atom;}
-
-  template<>
-  FastList<Atom>& Parser::GetList<Atom>(){return atom_list;}
-
-  template<>
-  Material& Parser::GetGlobal(){return material;}
-
-  template<>
-  FastList<Material>& Parser::GetList<Material>(){return material_list;}
 
   template<>
   Tunnel& Parser::GetGlobal(){return tunnel;}
-
   template<>
   FastList<Tunnel>& Parser::GetList<Tunnel>(){return tunnel_list;}
 
   template<>
-  CavityModel& Parser::GetGlobal(){return cavitymodel;}
-
-  template<>
-  CavityModel* Parser::GetGlobalPtr(){return &cavitymodel;}
-
-  template<>
-  FastList<CavityModel>& Parser::GetList<CavityModel>(){return cavitymodel_list;}
-
-  template<>
   Scorer& Parser::GetGlobal(){return scorer;}
-
   template<>
   FastList<Scorer>& Parser::GetList<Scorer>() {return scorer_list;}
 
   template<>
   ScorerMesh& Parser::GetGlobal(){return scorermesh;}
-
   template<>
   FastList<ScorerMesh>& Parser::GetList<ScorerMesh>() {return scorermesh_list;}
   
   template<>
   Placement& Parser::GetGlobal(){return placement;}
-
   template<>
   FastList<Placement>& Parser::GetList<Placement>(){return placement_list;}
-  
-  template<>
-  PhysicsBiasing& Parser::GetGlobal(){return xsecbias;}
-
-  template<>
-  FastList<PhysicsBiasing>& Parser::GetList<PhysicsBiasing, FastList<PhysicsBiasing>>(){return xsecbias_list;}
 
   template<>
   SamplerPlacement& Parser::GetGlobal(){return samplerplacement;}
-
   template<>
   FastList<SamplerPlacement>& Parser::GetList<SamplerPlacement>() {return samplerplacement_list;}
 
   template<>
-  BLMPlacement& Parser::GetGlobal() {return blm;}
-
-  template<>
-  BLMPlacement* Parser::GetGlobalPtr() {return &blm;}
-
-  template<>
-  FastList<BLMPlacement>& Parser::GetList<BLMPlacement>() {return blm_list;}
-
-  template<>
   Modulator& Parser::GetGlobal() {return modulator;}
-
   template<>
   FastList<Modulator>& Parser::GetList<Modulator>() {return modulator_list;}
-
-  template<>
-  Aperture& Parser::GetGlobal() {return aperture;}
-
-  template<>
-  Aperture* Parser::GetGlobalPtr(){return &aperture;}
-
-  template<>
-  FastList<Aperture>& Parser::GetList<Aperture>() {return aperture_list;}
 
   template<>
   void Parser::ExtendValue(const std::string& property, double value)
