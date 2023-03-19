@@ -41,11 +41,7 @@ PYBIND11_MODULE(parser, m) {
                              std::string end) {parser.expand_line(name,start,end);})
        .def("get_sequence",&GMAD::Parser::get_sequence)
 
-       ///@{ Add value to front of temporary list
-       .def("Store",[](GMAD::Parser &parser, double value) {parser.Store(value);})
-       .def("Store",[](GMAD::Parser &parser, const std::string& name) {parser.Store(name);})
 
-       //
        .def("ClearParams",&GMAD::Parser::ClearParams)
 
        .def("Add_Atom",[](GMAD::Parser *parser) {parser->Add<GMAD::Atom, GMAD::FastList<GMAD::Atom>>();})
@@ -84,7 +80,6 @@ PYBIND11_MODULE(parser, m) {
        .def("Add_ScorerMesh",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::ScorerMesh, GMAD::FastList<GMAD::ScorerMesh>>(unique, className);})
        .def("Add_Tunnel",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Tunnel, GMAD::FastList<GMAD::Tunnel>>(unique, className);})
 
-
        .def("GetGlobal_Atom",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Atom>();})
        .def("GetGlobal_Aperture",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Aperture>();})
        .def("GetGlobal_Beam",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Beam>();})
@@ -121,6 +116,19 @@ PYBIND11_MODULE(parser, m) {
        .def("GetList_SamplerPlacement",[](GMAD::Parser *parser) {return parser->GetList<GMAD::SamplerPlacement, GMAD::FastList<GMAD::SamplerPlacement>>();})
        .def("GetList_Scorer",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Scorer, GMAD::FastList<GMAD::Scorer>>();})
        .def("GetList_ScorerMesh",[](GMAD::Parser *parser) {return parser->GetList<GMAD::ScorerMesh, GMAD::FastList<GMAD::ScorerMesh>>();})
+
+       .def("GetSamplerFilters",&GMAD::Parser::GetSamplerFilters)
+       .def("GetSamplerFilterIDToSet",&GMAD::Parser::GetSamplerFilterIDToSet)
+
+       .def("find_element",[](GMAD::Parser &parser, std::string& elementName) {return parser.find_element(elementName);})
+       .def("find_element_safe",[](GMAD::Parser &parser, const std::string& elementName) {return parser.find_element_safe(elementName);})
+       .def("find_placement_element_safe",[](GMAD::Parser &parser, const std::string& elementName) {return parser.find_placement_element_safe(elementName);})
+       .def("property_lookup",[](GMAD::Parser &parser, const std::string& elementName,  const std::string& propertyName) {return parser.property_lookup(elementName,propertyName);})
+       .def("add_element_temp",[](GMAD::Parser &parser, const std::string& elementName, int number, bool pushFront, GMAD::ElementType lineType) {parser.add_element_temp(elementName, number,pushFront,lineType);})
+       .def("copy_element_to_params",[](GMAD::Parser &parser,const std::string& elementName) {return parser.copy_element_to_params(elementName);})
+
+       .def("Store",[](GMAD::Parser &parser, double value) {parser.Store(value);})
+       .def("Store",[](GMAD::Parser &parser, const std::string& name) {parser.Store(name);})
 
 
        .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, std::string value ) {parser.SetValue<GMAD::Atom,std::string>(property, value);})
