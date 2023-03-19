@@ -3,29 +3,40 @@
 #include <pybind11/stl.h>
 namespace py = pybind11;
 
+#include "fastlist.h"
+
 #include "atom.h"
 #include "aperture.h"
 #include "blmplacement.h"
 #include "cavitymodel.h"
 #include "crystal.h"
 #include "element.h"
-#include "fastlist.h"
+#include "field.h"
+#include "material.h"
+#include "modulator.h"
+#include "newcolour.h"
+#include "physicsbiasing.h"
+#include "placement.h"
+#include "query.h"
+#include "region.h"
+#include "samplerplacement.h"
 
 PYBIND11_MAKE_OPAQUE(GMAD::FastList<GMAD::Atom>);
 
 PYBIND11_MODULE(fastlist, m) {
-
-  py::class_<GMAD::FastList<GMAD::Atom>>(m,"FastList_Atom")
-    .def(py::init<>())
-    .def("__iter__", [](const GMAD::FastList<GMAD::Atom> &s)
-                        { return py::make_iterator(s.begin(), s.end()); },
-                        py::keep_alive<0,1>());
 
   py::class_<GMAD::FastList<GMAD::Aperture>>(m,"FastList_Aperture")
     .def(py::init<>())
     .def("__iter__", [](const GMAD::FastList<GMAD::Aperture> &s)
     { return py::make_iterator(s.begin(), s.end()); },
     py::keep_alive<0,1>());
+
+
+  py::class_<GMAD::FastList<GMAD::Atom>>(m,"FastList_Atom")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Atom> &s)
+                        { return py::make_iterator(s.begin(), s.end()); },
+                        py::keep_alive<0,1>());
 
   py::class_<GMAD::FastList<GMAD::BLMPlacement>>(m,"FastList_BLMPlacement")
     .def(py::init<>())
@@ -94,5 +105,57 @@ PYBIND11_MODULE(fastlist, m) {
   py::class_<GMAD::FastList<GMAD::Element>::FastMapIteratorPair>(m,"FastList_Element_FastMapIteratorPair");
   py::class_<GMAD::FastList<GMAD::Element>::FastMapConstIteratorPair>(m,"FastList_Element_FastMapConstIteratorPair");
 
+  py::class_<GMAD::FastList<GMAD::Field>>(m,"FastList_Field")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Field> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
 
+  py::class_<GMAD::FastList<GMAD::Material>>(m,"FastList_Material")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Material> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::Modulator>>(m,"FastList_Modulator")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Modulator> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::NewColour>>(m,"FastList_NewColour")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::NewColour> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::PhysicsBiasing>>(m,"FastList_PhysicsBiasing")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::PhysicsBiasing> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::Placement>>(m,"FastList_Placement")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Placement> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::Query>>(m,"FastList_Query")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Query> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::Region>>(m,"FastList_Region")
+   .def(py::init<>())
+   .def("__iter__", [](const GMAD::FastList<GMAD::Region> &s)
+   { return py::make_iterator(s.begin(), s.end()); },
+   py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::SamplerPlacement>>(m,"FastList_SamplerPlacement")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::SamplerPlacement> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
 }
