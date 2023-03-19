@@ -73,7 +73,7 @@ PYBIND11_MODULE(parser, m) {
        .def("Add_Crystal",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Crystal, GMAD::FastList<GMAD::Crystal>>(unique, className);})
        .def("Add_Field",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Field, GMAD::FastList<GMAD::Field>>(unique, className);})
        .def("Add_Material",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Material, GMAD::FastList<GMAD::Material>>(unique, className);})
-       .def("Add_Modulator",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Modulator, GMAD::FastList<GMAD::Material>>(unique, className);})
+       .def("Add_Modulator",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Modulator, GMAD::FastList<GMAD::Modulator>>(unique, className);})
        .def("Add_NewColour",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::NewColour, GMAD::FastList<GMAD::NewColour>>(unique, className);})
        .def("Add_PhysicsBiasing",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::PhysicsBiasing, GMAD::FastList<GMAD::PhysicsBiasing>>(unique, className);})
        .def("Add_Placement",[](GMAD::Parser *parser, bool unique, std::string className) {parser->Add<GMAD::Placement, GMAD::FastList<GMAD::Placement>>(unique, className);})
@@ -96,6 +96,7 @@ PYBIND11_MODULE(parser, m) {
        .def("GetGlobal_Modulator",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Modulator>();})
        .def("GetGlobal_NewColour",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::NewColour>();})
        .def("GetGlobal_Options",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Options>();})
+       .def("GetGlobal_Parameters",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Parameters>();})
        .def("GetGlobal_PhysicsBias",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::PhysicsBiasing>();})
        .def("GetGlobal_Placement",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Placement>();})
        .def("GetGlobal_Query",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Query>();})
@@ -104,9 +105,6 @@ PYBIND11_MODULE(parser, m) {
        .def("GetGlobal_Scorer",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Scorer>();})
        .def("GetGlobal_ScorerMesh",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::ScorerMesh>();})
        .def("GetGlobal_Tunnel",[](GMAD::Parser *parser) {return parser->GetGlobalPtr<GMAD::Tunnel>();})
-
-
-       .def("GetGlobal_Parameters",[](GMAD::Parser parser) {return parser.GetGlobal<GMAD::Parameters>();})
 
        .def("GetList_Atom",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Atom, GMAD::FastList<GMAD::Atom>>();})
        .def("GetList_Aperture",[](GMAD::Parser *parser) {return parser->GetList<GMAD::Aperture, GMAD::FastList<GMAD::Aperture>>();})

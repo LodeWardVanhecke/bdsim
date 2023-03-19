@@ -69,7 +69,7 @@ namespace GMAD {
   template void Parser::Add<Crystal, FastList<Crystal> >();
   template void Parser::Add<Field, FastList<Field> >();
   template void Parser::Add<Material, FastList<Material> >();
-  // template void Parser::Add<Modulator, FastList<Modulator> >();
+  template void Parser::Add<Modulator, FastList<Modulator> >();
   template void Parser::Add<NewColour, FastList<NewColour> >();
   template void Parser::Add<PhysicsBiasing, FastList<PhysicsBiasing> >();
   template void Parser::Add<Placement, FastList<Placement> >();
@@ -1065,6 +1065,7 @@ namespace GMAD {
   ScorerMesh* Parser::GetGlobalPtr(){return &scorermesh;}
   template<>
   FastList<ScorerMesh>& Parser::GetList<ScorerMesh>() {return scorermesh_list;}
+
 
   template<>
   Tunnel& Parser::GetGlobal(){return tunnel;}

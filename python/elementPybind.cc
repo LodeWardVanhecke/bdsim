@@ -9,9 +9,13 @@ namespace py = pybind11;
 
 #include "element.h"
 #include "elementtype.h"
+#include "parameters.h"
 
 PYBIND11_MODULE(element, m) {
-  py::class_<GMAD::Element>(m,"Element")
+  py::class_<GMAD::Published<GMAD::Element>>(m,"PublishedElement")
+    .def("NameExists",&GMAD::Element::NameExists);
+
+  py::class_<GMAD::Element, GMAD::Published<GMAD::Element>>(m,"Element")
     .def(py::init<>())
     .def_readwrite("type", &GMAD::Element::type)
     .def_readwrite("name", &GMAD::Element::name)
@@ -101,7 +105,6 @@ PYBIND11_MODULE(element, m) {
     .def_readwrite("windowScreenGap", &GMAD::Element::windowScreenGap)
     .def_readwrite("screenXSize", &GMAD::Element::screenXSize)
     .def_readwrite("screenYSize", &GMAD::Element::screenYSize)
-
     .def_readwrite("layerThicknesses", &GMAD::Element::layerThicknesses)
     .def_readwrite("layerMaterials", &GMAD::Element::layerMaterials)
     .def_readwrite("layerIsSampler", &GMAD::Element::layerIsSampler)
@@ -148,7 +151,6 @@ PYBIND11_MODULE(element, m) {
     .def_readwrite("bias", &GMAD::Element::bias)
     .def_readwrite("biasMaterial", &GMAD::Element::biasMaterial)
     .def_readwrite("biasVacuum", &GMAD::Element::biasVacuum)
-
     .def_readwrite("biasMaterialList", &GMAD::Element::biasMaterialList)
     .def_readwrite("biasVacuumList", &GMAD::Element::biasVacuumList)
 
@@ -193,6 +195,19 @@ PYBIND11_MODULE(element, m) {
 
     .def_readwrite("scalingFieldOuterSet", &GMAD::Element::scalingFieldOuterSet)
 
-    .def_readwrite("lst", &GMAD::Element::lst);
+    .def_readwrite("lst", &GMAD::Element::lst)
 
+    .def("print",&GMAD::Element::print)
+    .def("flush",&GMAD::Element::flush)
+    .def("isSpecial",&GMAD::Element::isSpecial)
+    .def("property_lookup",&GMAD::Element::property_lookup)
+    .def("setSamplerInfo",&GMAD::Element::setSamplerInfo)
+    .def("set",[](GMAD::Element &element, const GMAD::Parameters &params) {element.set(params);})
+    .def("set",[](GMAD::Element &element, const GMAD::Parameters &params,std::string nameIn, GMAD::ElementType typeIn) {element.set(params,nameIn, typeIn);})
+
+    .def("set_value",[](GMAD::Element &element,std::string name,std::string value) {element.set_value<std::string>(name,value, false);})
+    .def("set_value",[](GMAD::Element &element,std::string name,int value) {element.set_value<int>(name,value, false);})
+    .def("set_value",[](GMAD::Element &element,std::string name,bool value) {element.set_value<bool>(name,value, false);})
+    .def("set_value",[](GMAD::Element &element,std::string name,long int value) {element.set_value<long int>(name,value, false);})
+    .def("set_value",[](GMAD::Element &element,std::string name,double value) {element.set_value<double>(name,value, false);});
 }
