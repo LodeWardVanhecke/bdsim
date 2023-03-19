@@ -69,8 +69,13 @@ namespace GMAD {
   template void Parser::Add<Crystal, FastList<Crystal> >();
   template void Parser::Add<Field, FastList<Field> >();
   template void Parser::Add<Material, FastList<Material> >();
+  template void Parser::Add<Modulator, FastList<Modulator> >();
   template void Parser::Add<NewColour, FastList<NewColour> >();
   template void Parser::Add<PhysicsBiasing, FastList<PhysicsBiasing> >();
+  template void Parser::Add<Placement, FastList<Placement> >();
+  template void Parser::Add<Query, FastList<Query> >();
+  template void Parser::Add<Region, FastList<Region> >();
+  template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >();
 
   template void Parser::Add<Atom, FastList<Atom> >(bool unique, const std::string& className);
   template void Parser::Add<Aperture, FastList<Aperture> >(bool unique, const std::string& className);
@@ -79,12 +84,13 @@ namespace GMAD {
   template void Parser::Add<Crystal, FastList<Crystal> >(bool unique, const std::string& className);
   template void Parser::Add<Field, FastList<Field> >(bool unique, const std::string& className);
   template void Parser::Add<Material, FastList<Material> >(bool unique, const std::string& className);
+  template void Parser::Add<Modulator, FastList<Modulator> >(bool unique, const std::string& className);
   template void Parser::Add<NewColour, FastList<NewColour> >(bool unique, const std::string& className);
   template void Parser::Add<PhysicsBiasing, FastList<PhysicsBiasing> >(bool unique, const std::string& className);
-
-  template void Parser::Add<Modulator, FastList<Modulator> >(bool unique, const std::string& className);
   template void Parser::Add<Query, FastList<Query> >(bool unique, const std::string& className);
   template void Parser::Add<Region, FastList<Region> >(bool unique, const std::string& className);
+  template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >(bool unique, const std::string& className);
+
   template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >(bool unique, const std::string& className);
   template void Parser::Add<Scorer, FastList<Scorer> >(bool unique, const std::string& className);
   template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >(bool unique, const std::string& className);
@@ -1011,16 +1017,41 @@ namespace GMAD {
   FastList<PhysicsBiasing>& Parser::GetList<PhysicsBiasing, FastList<PhysicsBiasing>>(){return xsecbias_list;}
 
   template<>
-  Region& Parser::GetGlobal(){return region;}
+  Placement& Parser::GetGlobal(){return placement;}
   template<>
-  FastList<Region>& Parser::GetList<Region>(){return region_list;}
-
-
+  Placement* Parser::GetGlobalPtr(){return &placement;}
+  template<>
+  FastList<Placement>& Parser::GetList<Placement>(){return placement_list;}
 
   template<>
   Query& Parser::GetGlobal(){return query;}
   template<>
+  Query* Parser::GetGlobalPtr(){return &query;}
+  template<>
   FastList<Query>& Parser::GetList<Query>(){return query_list;}
+
+  template<>
+  Region& Parser::GetGlobal(){return region;}
+  template<>
+  Region* Parser::GetGlobalPtr(){return &region;}
+  template<>
+  FastList<Region>& Parser::GetList<Region>(){return region_list;}
+
+  template<>
+  SamplerPlacement& Parser::GetGlobal(){return samplerplacement;}
+  template<>
+  SamplerPlacement* Parser::GetGlobalPtr(){return &samplerplacement;}
+  template<>
+  FastList<SamplerPlacement>& Parser::GetList<SamplerPlacement>() {return samplerplacement_list;}
+
+
+
+
+
+
+
+
+
 
   template<>
   Tunnel& Parser::GetGlobal(){return tunnel;}
@@ -1036,16 +1067,6 @@ namespace GMAD {
   ScorerMesh& Parser::GetGlobal(){return scorermesh;}
   template<>
   FastList<ScorerMesh>& Parser::GetList<ScorerMesh>() {return scorermesh_list;}
-  
-  template<>
-  Placement& Parser::GetGlobal(){return placement;}
-  template<>
-  FastList<Placement>& Parser::GetList<Placement>(){return placement_list;}
-
-  template<>
-  SamplerPlacement& Parser::GetGlobal(){return samplerplacement;}
-  template<>
-  FastList<SamplerPlacement>& Parser::GetList<SamplerPlacement>() {return samplerplacement_list;}
 
   template<>
   Modulator& Parser::GetGlobal() {return modulator;}
