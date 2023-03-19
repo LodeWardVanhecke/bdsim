@@ -7,7 +7,8 @@ list(APPEND pythonBindingSrcs
         aperture array atom beam blmplacement cavitymodel
         crystal element fastlist field material modulator
         newcolour options parser physicsbiasing placement
-        query region samplerplacement sym_table)
+        query region samplerplacement scorer scorermesh
+        sym_table tunnel)
 
 list(APPEND rootBindingSrcs
         bdsimclass bdsexecoptions bdsparser)

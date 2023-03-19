@@ -20,6 +20,9 @@ namespace py = pybind11;
 #include "query.h"
 #include "region.h"
 #include "samplerplacement.h"
+#include "scorer.h"
+#include "scorermesh.h"
+#include "tunnel.h"
 
 PYBIND11_MAKE_OPAQUE(GMAD::FastList<GMAD::Atom>);
 
@@ -158,4 +161,23 @@ PYBIND11_MODULE(fastlist, m) {
     .def("__iter__", [](const GMAD::FastList<GMAD::SamplerPlacement> &s)
     { return py::make_iterator(s.begin(), s.end()); },
     py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::Scorer>>(m,"FastList_Scorer")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Scorer> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::ScorerMesh>>(m,"FastList_ScorerMesh")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::ScorerMesh> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
+  py::class_<GMAD::FastList<GMAD::Tunnel>>(m,"FastList_Tunnel")
+    .def(py::init<>())
+    .def("__iter__", [](const GMAD::FastList<GMAD::Tunnel> &s)
+    { return py::make_iterator(s.begin(), s.end()); },
+    py::keep_alive<0,1>());
+
 }

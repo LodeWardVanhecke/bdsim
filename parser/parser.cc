@@ -69,13 +69,16 @@ namespace GMAD {
   template void Parser::Add<Crystal, FastList<Crystal> >();
   template void Parser::Add<Field, FastList<Field> >();
   template void Parser::Add<Material, FastList<Material> >();
-  template void Parser::Add<Modulator, FastList<Modulator> >();
+  // template void Parser::Add<Modulator, FastList<Modulator> >();
   template void Parser::Add<NewColour, FastList<NewColour> >();
   template void Parser::Add<PhysicsBiasing, FastList<PhysicsBiasing> >();
   template void Parser::Add<Placement, FastList<Placement> >();
   template void Parser::Add<Query, FastList<Query> >();
   template void Parser::Add<Region, FastList<Region> >();
   template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >();
+  template void Parser::Add<Scorer, FastList<Scorer> >();
+  template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >();
+  template void Parser::Add<Tunnel, FastList<Tunnel> >();
 
   template void Parser::Add<Atom, FastList<Atom> >(bool unique, const std::string& className);
   template void Parser::Add<Aperture, FastList<Aperture> >(bool unique, const std::string& className);
@@ -89,8 +92,6 @@ namespace GMAD {
   template void Parser::Add<PhysicsBiasing, FastList<PhysicsBiasing> >(bool unique, const std::string& className);
   template void Parser::Add<Query, FastList<Query> >(bool unique, const std::string& className);
   template void Parser::Add<Region, FastList<Region> >(bool unique, const std::string& className);
-  template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >(bool unique, const std::string& className);
-
   template void Parser::Add<SamplerPlacement, FastList<SamplerPlacement> >(bool unique, const std::string& className);
   template void Parser::Add<Scorer, FastList<Scorer> >(bool unique, const std::string& className);
   template void Parser::Add<ScorerMesh, FastList<ScorerMesh> >(bool unique, const std::string& className);
@@ -995,6 +996,13 @@ namespace GMAD {
   FastList<Material>& Parser::GetList<Material>(){return material_list;}
 
   template<>
+  Modulator& Parser::GetGlobal() {return modulator;}
+  template<>
+  Modulator* Parser::GetGlobalPtr() {return &modulator;}
+  template<>
+  FastList<Modulator>& Parser::GetList<Modulator>() {return modulator_list;}
+
+  template<>
   NewColour& Parser::GetGlobal(){return colour;}
   template<>
   NewColour* Parser::GetGlobalPtr(){return &colour;}
@@ -1044,34 +1052,26 @@ namespace GMAD {
   template<>
   FastList<SamplerPlacement>& Parser::GetList<SamplerPlacement>() {return samplerplacement_list;}
 
-
-
-
-
-
-
-
-
-
-  template<>
-  Tunnel& Parser::GetGlobal(){return tunnel;}
-  template<>
-  FastList<Tunnel>& Parser::GetList<Tunnel>(){return tunnel_list;}
-
   template<>
   Scorer& Parser::GetGlobal(){return scorer;}
+  template<>
+  Scorer* Parser::GetGlobalPtr(){return &scorer;}
   template<>
   FastList<Scorer>& Parser::GetList<Scorer>() {return scorer_list;}
 
   template<>
   ScorerMesh& Parser::GetGlobal(){return scorermesh;}
   template<>
+  ScorerMesh* Parser::GetGlobalPtr(){return &scorermesh;}
+  template<>
   FastList<ScorerMesh>& Parser::GetList<ScorerMesh>() {return scorermesh_list;}
 
   template<>
-  Modulator& Parser::GetGlobal() {return modulator;}
+  Tunnel& Parser::GetGlobal(){return tunnel;}
   template<>
-  FastList<Modulator>& Parser::GetList<Modulator>() {return modulator_list;}
+  Tunnel* Parser::GetGlobalPtr(){return &tunnel;}
+  template<>
+  FastList<Tunnel>& Parser::GetList<Tunnel>(){return tunnel_list;}
 
   template<>
   void Parser::ExtendValue(const std::string& property, double value)

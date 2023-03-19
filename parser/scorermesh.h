@@ -93,22 +93,23 @@ namespace GMAD
   };
   
   template <typename T>
-  void ScorerMesh::set_value(std::string property, T value)
-  {
+  void ScorerMesh::set_value(std::string property, T value, bool bExit)
+    {
 #ifdef BDSDEBUG
     std::cout << "scorermesh> Setting value " << std::setw(25) << std::left
               << property << value << std::endl;
 #endif
-    // member method can throw runtime_error, catch and exit gracefully
-    try
+      // member method can throw runtime_error, catch and exit gracefully
+      try
       {set(this,property,value);}
-    catch (const std::runtime_error&)
+      catch (const std::runtime_error&)
       {
-        std::cerr << "Error: scorermesh> unknown option \"" << property
-                  << "\" with value \"" << value << "\" in definition \"" << this->name << "\"" << std::endl;
-        exit(1);
+          std::cerr << "Error: scorermesh> unknown option \"" << property
+                    << "\" with value \"" << value << "\"" << std::endl;
+          if (bExit) { exit(1); }
+          else { std::rethrow_exception(std::current_exception()); } // to be caught by python
       }
-  }
+    }
 }
 
 #endif
