@@ -13,7 +13,9 @@ namespace py = pybind11;
 #include "region.h"
 #include "fastlist.h"
 #include "physicsbiasing.h"
+#include "sym_table.h"
 #include "tunnel.h"
+
 
 PYBIND11_MODULE(parser, m) {
     py::class_<GMAD::Parser>(m,"Parser")
@@ -127,18 +129,35 @@ PYBIND11_MODULE(parser, m) {
        .def("add_element_temp",[](GMAD::Parser &parser, const std::string& elementName, int number, bool pushFront, GMAD::ElementType lineType) {parser.add_element_temp(elementName, number,pushFront,lineType);})
        .def("copy_element_to_params",[](GMAD::Parser &parser,const std::string& elementName) {return parser.copy_element_to_params(elementName);})
 
+       .def("InvalidSymbolName",&GMAD::Parser::InvalidSymbolName)
+       .def("symcreate", &GMAD::Parser::symcreate)
+       .def("symlook", &GMAD::Parser::symlook)
+
        .def("Store",[](GMAD::Parser &parser, double value) {parser.Store(value);})
        .def("Store",[](GMAD::Parser &parser, const std::string& name) {parser.Store(name);})
-
+       .def("FillArray", &GMAD::Parser::FillArray)
+       .def("FillString",&GMAD::Parser::FillString)
+       .def("ClearParams", &GMAD::Parser::ClearParams)
 
        .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, std::string value ) {parser.SetValue<GMAD::Atom,std::string>(property, value);})
        .def("SetValue_Atom",[](GMAD::Parser &parser, std::string property, double value ) {parser.SetValue<GMAD::Atom,double>(property, value);})
+       // SetValue
+       // GetValue<>()
+       // Array to list
+       // ExtendValue
 
+       .def("Overwrite", &GMAD::Parser::Overwrite)
+       .def("AddVariable",&GMAD::Parser::AddVariable)
+       //
        .def("PrintBeamline", &GMAD::Parser::PrintBeamline)
        .def("PrintElements", &GMAD::Parser::PrintElements)
        .def("PrintOptions", &GMAD::Parser::PrintOptions)
        //
        .def("TryPrintingObject", &GMAD::Parser::TryPrintingObject)
+       //
+       .def_readwrite("current_line", &GMAD::Parser::current_line)
+       .def_readwrite("current_start", &GMAD::Parser::current_start)
+       .def_readwrite("current_end", &GMAD::Parser::current_end)
        //
        .def("GetBeamline",&GMAD::Parser::GetBeamline);
 }
