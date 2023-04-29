@@ -11,7 +11,7 @@ list(APPEND pythonBindingSrcs
         sym_table tunnel)
 
 list(APPEND rootBindingSrcs
-        bdsimclass bdsexecoptions bdsparser)
+        bdsimclass bdsexecoptions bdsparser bdsoutputrooteventsampler)
 
 foreach(pythonBindingSrc IN ZIP_LISTS pythonBindingSrcs)
     MESSAGE(STATUS ${pythonBindingSrc_0})

@@ -71,3 +71,4 @@ examples/features/options/*.dat
 
 .build*
 .install*
+cmake-build*
