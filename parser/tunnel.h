@@ -25,71 +25,73 @@ along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "published.h"
 
-namespace GMAD {
-    /**
-     * @brief Tunnel class for parser
-     *
-     * @author Jochem Snuverink
-     */
-    class Tunnel : public Published<Tunnel> {
+namespace GMAD
+{
+  /**
+   * @brief Tunnel class for parser
+   * 
+   * @author Jochem Snuverink
+   */
+  class Tunnel: public Published<Tunnel> {
 
-    public:
-        std::string name; ///< name
-        /// geometry type
-        std::string type;
+  public:
+    std::string name; ///< name
+    /// geometry type
+    std::string type;
 
-        /// radius, aperture parameters
-        double aper1;
-        double aper2;
-        /// offset x and y
-        double offsetX, offsetY;
-        /// tunnel geometry parameters
-        double thickness;
-        double soilThickness;
-        double floorOffset;
+    /// radius, aperture parameters
+    double   aper1;
+    double   aper2;
+    /// offset x and y
+    double   offsetX, offsetY;
+    /// tunnel geometry parameters
+    double   thickness;
+    double   soilThickness;
+    double   floorOffset;
 
-        /// visibility
-        int visible;
+    /// visibility
+    int      visible;
+  
+    /// material
+    std::string material;
+    /// soil
+    std::string soilMaterial;
 
-        /// material
-        std::string material;
-        /// soil
-        std::string soilMaterial;
+    /// start and end element by name
+    std::string startElement, endElement;
+  
+    /// constructor
+    Tunnel();
+    /// reset
+    void clear();
+    /// print some properties
+    void print()const;
+    /// set methods by property name and value
+    template <typename T>
+    void set_value(std::string property, T value, bool bExit = true);
 
-        /// start and end element by name
-        std::string startElement, endElement;
-
-        /// constructor
-        Tunnel();
-
-        /// reset
-        void clear();
-
-        /// print some properties
-        void print() const;
-
-        /// set methods by property name and value
-        template<typename T>
-        void set_value(std::string property, T value, bool bExit = true);
-
-    private:
-        /// Publish members
-        void PublishMembers();
-    };
-
-    template<typename T>
-    void Tunnel::set_value(std::string property, T value, bool bExit) {
+  private:
+    /// Publish members
+    void PublishMembers();
+  };
+  
+  template <typename T>
+  void Tunnel::set_value(std::string property, T value, bool bExit)
+    {
 #ifdef BDSDEBUG
-        std::cout << "tunnel> Setting value " << std::setw(25) << std::left << property << value << std::endl;
+      std::cout << "tunnel> Setting value " << std::setw(25) << std::left << property << value << std::endl;
 #endif
-        // member method can throw runtime_error, catch and exit gracefully
-        try { set(this, property, value); }
-        catch (const std::runtime_error &) {
-            std::cerr << "Error: tunnel> unknown option \"" << property << "\" with value " << value << "\""
-                      << std::endl;
-            if (bExit) { exit(1); }
-            else { std::rethrow_exception(std::current_exception()); } // to be caught by python
-        }
+      // member method can throw runtime_error, catch and exit gracefully
+      try
+	{set(this,property,value);}
+      catch(const std::runtime_error&)
+	{
+	  std::cerr << "Error: tunnel> unknown option \"" << property << "\" with value " << value << "\"" << std::endl;
+          if (bExit)
+            {exit(1);}
+          else
+            {std::rethrow_exception(std::current_exception());} // to be caught by python
+	}
     }
 }
 
