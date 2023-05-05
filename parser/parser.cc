@@ -126,12 +126,10 @@ Parser* Parser::Instance(const std::string& name)
       std::cerr << "Warning parser was already initialized!" << std::endl;
       delete instance;
     }
-  if (name != "") {
-      instance = new Parser(name);
-  }
+  if (!name.empty())
+    {instance = new Parser(name);}
   else
-      instance = new Parser();
-
+    {instance = new Parser();}
   return instance;
 }
 
@@ -178,12 +176,8 @@ Parser::Parser(std::string name)
 
 Parser::Parser()
 {
-    Initialise();
-    std::cout.precision(10); // set output precision to 10 decimals
-
+  Initialise();
 }
-
-
 
 void Parser::ParseFile(FILE *f)
 {

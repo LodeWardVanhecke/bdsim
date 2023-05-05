@@ -91,7 +91,7 @@ namespace GMAD
     /// Constructor from filename
     explicit Parser(std::string filename);
     /// Default contructor
-    explicit Parser();
+    Parser();
   private:
     /// Instance
     static Parser* instance;
