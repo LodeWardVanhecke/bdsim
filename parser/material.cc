@@ -94,7 +94,9 @@ void Material::set_value(const std::string& property, Array* value, bool bExit)
   else
     {
       std::cerr << "Error: parser> unknown material option \"" << property << "\", or doesn't expect vector type" << std::endl;
-      if(bExit) {exit(1);}
-      else {std::rethrow_exception(std::current_exception());} // to be caught by python
+      if(bExit)
+        {exit(1);}
+      else
+        {std::rethrow_exception(std::current_exception());} // to be caught by python
     }
 }

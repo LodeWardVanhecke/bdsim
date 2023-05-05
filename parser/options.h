@@ -87,8 +87,10 @@ namespace GMAD
     catch (const std::runtime_error&)
       {
         std::cerr << "Error: options> unknown option \"" << name << "\" with value \"" << value << "\"" << std::endl;
-        if (bExit) { exit(1); }
-        else {std::rethrow_exception(std::current_exception());} // to be caught by python
+        if (bExit)
+          {exit(1);}
+        else
+          {std::rethrow_exception(std::current_exception());} // to be caught by python
       }
   }
 }
