@@ -25,9 +25,10 @@ namespace py = pybind11;
 #include "elementtype.h"
 #include "parameters.h"
 
-PYBIND11_MODULE(element, m) {
+PYBIND11_MODULE(element, m)
+{
   py::class_<GMAD::Published<GMAD::Element>>(m,"PublishedElement")
-    .def("NameExists",&GMAD::Element::NameExists);
+    .def("NameExists", &GMAD::Element::NameExists);
 
   py::class_<GMAD::Element, GMAD::Published<GMAD::Element>>(m,"Element")
     .def(py::init<>())
@@ -63,7 +64,6 @@ PYBIND11_MODULE(element, m) {
     .def_readwrite("frequency", &GMAD::Element::frequency)
     .def_readwrite("phase", &GMAD::Element::phase)
     .def_readwrite("tOffset", &GMAD::Element::tOffset)
-
     .def_readwrite("kick1", &GMAD::Element::kick1)
     .def_readwrite("kick2", &GMAD::Element::kick2)
     .def_readwrite("kick3", &GMAD::Element::kick3)
@@ -211,17 +211,17 @@ PYBIND11_MODULE(element, m) {
 
     .def_readwrite("lst", &GMAD::Element::lst)
 
-    .def("print",&GMAD::Element::print)
-    .def("flush",&GMAD::Element::flush)
-    .def("isSpecial",&GMAD::Element::isSpecial)
-    .def("property_lookup",&GMAD::Element::property_lookup)
-    .def("setSamplerInfo",&GMAD::Element::setSamplerInfo)
-    .def("set",[](GMAD::Element &element, const GMAD::Parameters &params) {element.set(params);})
-    .def("set",[](GMAD::Element &element, const GMAD::Parameters &params,std::string nameIn, GMAD::ElementType typeIn) {element.set(params,nameIn, typeIn);})
+    .def("print", &GMAD::Element::print)
+    .def("flush", &GMAD::Element::flush)
+    .def("isSpecial", &GMAD::Element::isSpecial)
+    .def("property_lookup", &GMAD::Element::property_lookup)
+    .def("setSamplerInfo", &GMAD::Element::setSamplerInfo)
+    .def("set",[](GMAD::Element& element, const GMAD::Parameters& params) {element.set(params);})
+    .def("set",[](GMAD::Element& element, const GMAD::Parameters& params, std::string nameIn, GMAD::ElementType typeIn) {element.set(params, nameIn, typeIn);})
 
-    .def("set_value",[](GMAD::Element &element,std::string name,std::string value) {element.set_value<std::string>(name,value, false);})
-    .def("set_value",[](GMAD::Element &element,std::string name,int value) {element.set_value<int>(name,value, false);})
-    .def("set_value",[](GMAD::Element &element,std::string name,bool value) {element.set_value<bool>(name,value, false);})
-    .def("set_value",[](GMAD::Element &element,std::string name,long int value) {element.set_value<long int>(name,value, false);})
-    .def("set_value",[](GMAD::Element &element,std::string name,double value) {element.set_value<double>(name,value, false);});
+    .def("set_value",[](GMAD::Element& element, std::string name, std::string value) {element.set_value<std::string>(name, value, true);})
+    .def("set_value",[](GMAD::Element& element, std::string name, int value) {element.set_value<int>(name, value, true);})
+    .def("set_value",[](GMAD::Element& element, std::string name, bool value) {element.set_value<bool>(name, value, true);})
+    .def("set_value",[](GMAD::Element& element, std::string name, long int value) {element.set_value<long int>(name, value, true);})
+    .def("set_value",[](GMAD::Element& element, std::string name, double value) {element.set_value<double>(name, value, true);});
 }
