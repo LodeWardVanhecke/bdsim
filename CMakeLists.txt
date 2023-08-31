@@ -222,6 +222,8 @@ if (USE_GDML)
   target_link_libraries(${BDSIM_LIB_NAME} ${XercesC_LIBRARY_RELEASE})
 endif()
 target_link_libraries(${BDSIM_LIB_NAME} gmad)
+find_package(CGAL 5 REQUIRED)
+target_link_libraries(${BDSIM_LIB_NAME} CGAL::CGAL)
 generate_export_header(${BDSIM_LIB_NAME})
 
 add_executable(bdsimExec ${CMAKE_BINARY_DIR}/bdsim.cc)
