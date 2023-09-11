@@ -5,6 +5,14 @@
 
 G4SurfaceMeshCGAL::G4SurfaceMeshCGAL() : G4VSurfaceMesh() {}
 
+G4SurfaceMeshCGAL::G4SurfaceMeshCGAL(G4SurfaceMeshCGAL &smIn) : G4VSurfaceMesh() {
+    sm = Surface_mesh(smIn.sm);
+}
+
+G4SurfaceMeshCGAL::G4SurfaceMeshCGAL(G4SurfaceMeshCGAL *smIn) : G4VSurfaceMesh() {
+    sm = Surface_mesh(smIn->sm);
+}
+
 
 G4SurfaceMeshCGAL::~G4SurfaceMeshCGAL()
 {
@@ -91,4 +99,54 @@ int G4SurfaceMeshCGAL::NumberOfVertices() {
 
 int G4SurfaceMeshCGAL::NumberOfFaces() {
     return sm.number_of_faces();
+}
+
+int G4SurfaceMeshCGAL::IsValid() {
+    return sm.is_valid(true);
+}
+
+int G4SurfaceMeshCGAL::IsTriangular() {
+    return CGAL::is_triangle_mesh(sm);
+}
+
+int G4SurfaceMeshCGAL::IsOutwardOriented() {
+    return CGAL::Polygon_mesh_processing::is_outward_oriented(sm);
+}
+
+int G4SurfaceMeshCGAL::IsClosed() {
+    return CGAL::is_closed(sm);
+}
+
+int G4SurfaceMeshCGAL::IsValidHalfEdgeGraph() {
+    return CGAL::is_valid_halfedge_graph(sm);
+}
+
+
+int G4SurfaceMeshCGAL::BoundAVolume() {
+    return CGAL::Polygon_mesh_processing::does_bound_a_volume(sm);
+}
+
+double G4SurfaceMeshCGAL::Volume() {
+    return CGAL::to_double(CGAL::Polygon_mesh_processing::volume(sm));
+}
+
+std::size_t G4SurfaceMeshCGAL::KeepLargestConnectedComponents(int iKeep) {
+    return CGAL::Polygon_mesh_processing::keep_largest_connected_components(sm, iKeep);
+}
+
+void G4SurfaceMeshCGAL::WriteMesh(std::string fn) {
+    std::ofstream ofstr(fn);
+    ofstr << sm;
+}
+
+std::vector<G4SurfaceMeshCGAL*> G4SurfaceMeshCGAL::DecomposeConnected() {
+    typedef Surface_mesh Mesh;
+    typedef boost::graph_traits<Mesh>::face_descriptor face_descriptor;
+    typedef Mesh::Property_map<face_descriptor, std::size_t> F_sizet_map;
+    face_descriptor fd = *faces(sm).first;
+    F_sizet_map fccmap = sm.add_property_map<face_descriptor, std::size_t>("f:CC").first;
+
+    auto sm1 = Surface_mesh(sm);
+    int ncompt = CGAL::Polygon_mesh_processing::connected_components(sm1,fccmap);
+    G4cout << "Components " << ncompt << G4endl;
 }

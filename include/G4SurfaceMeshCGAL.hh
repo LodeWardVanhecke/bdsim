@@ -29,6 +29,8 @@ typedef CGAL::Aff_transformation_3<Kernel>                Aff_transformation_3;
 class G4SurfaceMeshCGAL : public G4VSurfaceMesh {
 public:
     G4SurfaceMeshCGAL();
+    G4SurfaceMeshCGAL(G4SurfaceMeshCGAL &smIn);
+    G4SurfaceMeshCGAL(G4SurfaceMeshCGAL *smIn);
     ~G4SurfaceMeshCGAL();
     void fill(G4Polyhedron *polyIn);
     G4SurfaceMeshCGAL* Subtraction(G4SurfaceMeshCGAL *surfaceMesh);
@@ -41,6 +43,16 @@ public:
     std::vector<G4int> GetFace(G4int iFace);
     virtual int NumberOfVertices();
     virtual int NumberOfFaces();
+    int IsValid();
+    int IsTriangular();
+    int IsOutwardOriented();
+    int IsClosed();
+    int IsValidHalfEdgeGraph();
+    int BoundAVolume();
+    double Volume();
+    std::size_t KeepLargestConnectedComponents(int iKeep);
+    void WriteMesh(std::string fn);
+    std::vector<G4SurfaceMeshCGAL*> DecomposeConnected();
 private:
 
     Surface_mesh sm;
