@@ -91,7 +91,7 @@ namespace GMAD
     void print()const;
     /// Set methods by property name and value
     template <typename T>
-    void set_value(std::string property, T value);
+    void set_value(std::string property, T value, bool bExit = true);
 
 
   private:
