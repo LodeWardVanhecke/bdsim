@@ -82,7 +82,7 @@ macro(bdsim_install_gdml)
 endmacro()
 macro(bdsim_install_python)
     install(TARGETS ${ARGN}
-            DESTINATION lib/python/
+            DESTINATION lib/python/bdsim
             COMPONENT python)
 endmacro()
 
