@@ -96,12 +96,20 @@ PYBIND11_MODULE(fastlist, m) {
     // erase
     .def("begin",[](GMAD::FastList<GMAD::Element> &fastlist) {return fastlist.begin();})
     .def("end",[](GMAD::FastList<GMAD::Element> &fastlist) {return fastlist.end();})
-    .def("getVector",&GMAD::FastList<GMAD::Element>::getVector);
+    .def("getVector",&GMAD::FastList<GMAD::Element>::getVector)
+    .def("__iter__", [](GMAD::FastList<GMAD::Element> &fastlist) { return py::make_iterator(fastlist.begin(), fastlist.end());});
 
   py::class_<GMAD::FastList<GMAD::Element>::FastListIterator>(m,"FastList_FastListIterator")
     .def("__eq__",[](GMAD::FastList<GMAD::Element>::FastListIterator &i1,
                      GMAD::FastList<GMAD::Element>::FastListIterator &i2)
-                     {return i1 == i2;});
+                     {return i1 == i2;})
+    .def("__ne__",[](GMAD::FastList<GMAD::Element>::FastListIterator &i1,
+                     GMAD::FastList<GMAD::Element>::FastListIterator &i2)
+                     {return i1 != i2;})
+    .def("object", [](GMAD::FastList<GMAD::Element>::FastListIterator &i1) {return *i1;})
+    .def("next", [](GMAD::FastList<GMAD::Element>::FastListIterator &i1) {i1++;})
+    .def("prev", [](GMAD::FastList<GMAD::Element>::FastListIterator &i1) {i1--;});
+
   py::class_<GMAD::FastList<GMAD::Element>::FastListConstIterator>(m,"FastList_Element_FastListConstIterator");
   py::class_<GMAD::FastList<GMAD::Element>::FastMapIterator>(m,"FastList_Element_FastMapIterator");
   py::class_<GMAD::FastList<GMAD::Element>::FastMapConstIterator>(m,"FastList_Element_FastMapConstIterator");
