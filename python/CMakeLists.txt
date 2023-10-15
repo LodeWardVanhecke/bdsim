@@ -14,14 +14,18 @@ list(APPEND rootBindingSrcs
         bdsimclass bdsexecoptions bdsparser bdsoutputrooteventsampler)
 
 foreach(pythonBindingSrc IN ZIP_LISTS pythonBindingSrcs)
-    MESSAGE(STATUS ${pythonBindingSrc_0})
+    # MESSAGE(STATUS ${pythonBindingSrc_0})
     pybind11_add_module(${pythonBindingSrc_0} ${CMAKE_CURRENT_SOURCE_DIR}/${pythonBindingSrc_0}Pybind.cc)
     target_link_libraries(${pythonBindingSrc_0} PUBLIC ${GMAD_LIB_NAME} Python::Module)
     set_property(TARGET ${pythonBindingSrc_0} PROPERTY CXX_VISIBILITY_PRESET "default")
+    bdsim_install_python(${pythonBindingSrc_0})
 endforeach()
 
 foreach(rootBindingSrc IN ZIP_LISTS rootBindingSrcs)
+    # MESSAGE(STATUS ${rootBindingSrc_0})
     pybind11_add_module(${rootBindingSrc_0} ${CMAKE_CURRENT_SOURCE_DIR}/${rootBindingSrc_0}Pybind.cc)
     target_link_libraries(${rootBindingSrc_0} PUBLIC ${GMAD_LIB_NAME} ${BDSIM_LIB_NAME} Python::Module)
     target_include_directories(${rootBindingSrc_0} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include/)
+    bdsim_install_python(${rootBindingSrc_0})
 endforeach()
+
