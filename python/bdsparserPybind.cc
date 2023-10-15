@@ -18,9 +18,9 @@ PYBIND11_MODULE(bdsparser, m) {
     .def_static("IsInitialised",&BDSParser::IsInitialised)
     .def("GetOptions",&BDSParser::GetOptions)
     .def("GetOptionsBase",&BDSParser::GetOptionsBase)
-    .def("GetBeam",[](BDSParser &bdsp) {return bdsp.GetBeam();})
+    .def("GetBeam",[](BDSParser &bdsp) {return &bdsp.GetBeam();})
     .def("GetBeamBase",&BDSParser::GetBeamBase)
-    .def("GetBeamline",[](BDSParser &bdsp) {return bdsp.GetBeamline();})
+    .def("GetBeamline",[](BDSParser &bdsp) {return &bdsp.GetBeamline();})
     .def("GetSamplerFilterIDToSet",[](BDSParser &bdsp) {return bdsp.GetSamplerFilterIDToSet();})
     .def("GetSequence",&BDSParser::GetSequence)
     .def("GetElement", [](BDSParser &bdsp, const std::string& name) { return bdsp.GetElement(name);});
