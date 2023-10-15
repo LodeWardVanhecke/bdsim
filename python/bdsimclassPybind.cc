@@ -12,10 +12,12 @@ namespace py = pybind11;
 #include <vector>
 
 #include "BDSIMClass.hh"
+#include "BDSParser.hh"
 
 PYBIND11_MODULE(bdsimclass, m) {
 py::class_<BDSIM>(m,"BDSIM")
     .def(py::init<>())
+    .def(py::init<BDSParser *>())
     .def(py::init<>(
         [](std::vector<std::string> args, bool usualPrintOut=true) {
             std::vector<char *> cstrs;

@@ -62,6 +62,12 @@ BDSParser::BDSParser(const std::string& name):
   std::cout << __METHOD_NAME__ << "Using input file: "<< name << std::endl;
 }
 
+BDSParser::BDSParser()
+{
+  std::cout << __METHOD_NAME__ << "Only for python " << std::endl;
+  instance = this;
+}
+
 void BDSParser::AmalgamateBeam(const GMAD::Beam& execBeamIn,
 			       G4bool recreate)
 {

@@ -35,8 +35,8 @@ along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
 class BDSParser: private GMAD::Parser
 {
 public:
-  /// No default constructor.
-  BDSParser() = delete;
+  /// Default constructor
+  BDSParser();
   /// Constructor method.
   static BDSParser* Instance(const std::string& filename);
   /// Access method.
