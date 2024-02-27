@@ -21,7 +21,7 @@ along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string>
 
-class BDSROOTCompiledFunctionBase;
+class BDSROOTCompiledClassBase;
 
 /**
  * @brief TBC
@@ -32,14 +32,14 @@ class BDSROOTCompiledFunctionBase;
 class BDSROOTCompiledFunction
 {
 public:
-  BDSROOTCompiledFunction(std::string fileName,
-			  std::string className);
+  BDSROOTCompiledFunction(std::string functionName,
+			  std::string functionCode,
+                          bool compile);
   ~BDSROOTCompiledFunction();
   
 protected:
-  /// TBC - LN -> should not use _ in variable name - reserved for C++ implementation
-  std::string _functionName;
-  BDSROOTCompiledFunctionBase* _function;
+  std::string functionName;
+  BDSROOTCompiledClassBase * function;
 };
 
 #endif

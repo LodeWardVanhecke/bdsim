@@ -17,30 +17,43 @@ You should have received a copy of the GNU General Public License
 along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "BDSROOTCompiledFunction.hh"
-#include "BDSROOTCompiledFunctionBase.hh"
+#include "BDSROOTCompiledClassBase.hh"
 #include "BDSUtilities.hh"
 
 #include "TROOT.h"
 #include "TSystem.h"
 
 #include <iostream>
+#include <fstream>
 #include <string>
 
 
-BDSROOTCompiledFunction::BDSROOTCompiledFunction(std::string fileName,
-						 std::string className)
+BDSROOTCompiledFunction::BDSROOTCompiledFunction(std::string functionName,
+						 std::string functionCode,
+                                                 bool compile)
 {
+
+  if(compile) {
+    // write temporary file
+    std::ofstream ofstr("temp.cxx");
+    ofstr << functionCode << std::endl;
+    gSystem->CompileMacro("temp.cxx");
+    auto tf = gROOT->GetGlobalFunction(functionName.c_str());
+  }
+
+  /*
   std::cout << "BDSROOTCompiledFunction::BDSROOTCompiledFunction>" << std::endl;
   gSystem->AddIncludePath((" -I"+BDS::GetBDSIMExecPath()+"/../include/bdsim/").c_str());
   gSystem->CompileMacro(fileName.c_str());
   
   std::string cmdCreateClass = className+" *c = new "+className+"();"; // TODO goes via interpreter so c is global
   gROOT->ProcessLine(cmdCreateClass.c_str());
-  _function = (BDSROOTCompiledFunctionBase*)gROOT->GetListOfGlobals()->FindObject("c"); // TODO need to have a unique variable
+  function = (BDSROOTCompiledFunctionBase*)gROOT->GetListOfGlobals()->FindObject("c"); // TODO need to have a unique variable
   
   double *v; // dummy input to test execution of function
   double *r; // dummy return to test execution of function
-  std::cout <<  "BDSROOTCompiledFunction::BDSROOTCompiledFunction> " << _function << " " <<  std::endl;
+  std::cout <<  "BDSROOTCompiledFunction::BDSROOTCompiledFunction> " << function << " " <<  std::endl;
+  */
 }
 
 BDSROOTCompiledFunction::~BDSROOTCompiledFunction()

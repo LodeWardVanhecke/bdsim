@@ -32,11 +32,14 @@ along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
 #include "BDSIMClass.hh"
 #include "BDSException.hh"
 #include "BDSROOTCompiledFunction.hh"
+#include "BDSROOTCompiledClass.hh"
 #include <iostream>
 
 int main(int argc, char** argv)
 {
-  BDSROOTCompiledFunction *cf = new BDSROOTCompiledFunction("testClass.cc","testClass");
+  BDSROOTCompiledFunction *cf = new BDSROOTCompiledFunction("test_function","double test_function(double x, double y, double z, double t) { return x*y*z*t; }", true);
+  BDSROOTCompiledClass *cc = new BDSROOTCompiledClass("testClass.cc","testClass");
+
 
   BDSIM* bds = nullptr;
   try
