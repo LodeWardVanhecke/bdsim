@@ -2,15 +2,20 @@
 // Created by Stewart Boogert on 17/10/2021.
 //
 
+#include "BDSROOTCompiledClassBase.hh"
 #include "TROOT.h"
-#include "BDSROOTCompiledFunctionBase.hh"
+#include <iostream>
 
-class testClass : public BDSROOTCompiledFunctionBase {
+class testClass : public BDSROOTCompiledClassBase {
 public:
-    testClass() : BDSROOTCompiledFunctionBase() {}
-    testClass(const char *_name, const char *_title) : BDSROOTCompiledFunctionBase(_name, _title) {}
+    testClass() : BDSROOTCompiledClassBase() {}
+    testClass(const char *name, const char *title) : BDSROOTCompiledClassBase(name, title) {}
     virtual ~testClass() {}
-    virtual void SetParameters(double* ) {return;}
-    virtual void Evaluate(double* /* vars */, double* /*return*/) {return;}
+    virtual void SetParameters(double*) {return;}
+    virtual void Evaluate(double* vars, double &retval) {
+      std::cout << vars[0] << " " << vars[1] << std::endl;
+      retval = 0;
+      std::cout << retval << std::endl;
+    }
 };
 

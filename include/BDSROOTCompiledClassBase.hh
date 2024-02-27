@@ -26,28 +26,27 @@ along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
  * @author Stewart Boogert
  */
 
-class BDSROOTCompiledFunctionBase: public TNamed
+class BDSROOTCompiledClassBase : public TNamed
 {
 public:
-  BDSROOTCompiledFunctionBase():
+  BDSROOTCompiledClassBase():
     TNamed()
   {;}
-  BDSROOTCompiledFunctionBase(const char* name,
+  BDSROOTCompiledClassBase(const char* name,
 			      const char* title):
     TNamed(name,title)
   {;}
-  virtual ~BDSROOTCompiledFunctionBase() {};
-  void SetNumberOfParameters(int numberOfParameters=0) { _numberOfParameters = numberOfParameters;}
-  void SetNumberOfVariables(int numberOfVariables=0) { _numberOfVariables = numberOfVariables;}
+  virtual ~BDSROOTCompiledClassBase() {};
+  void SetNumberOfParameters(int numberOfParametersIn=0) { numberOfParameters = numberOfParametersIn;}
+  void SetNumberOfVariables(int numberOfVariablesIn=0) { numberOfVariables = numberOfVariablesIn;}
   virtual int GetNumberOfParameters() {return 0;}
   virtual int GetNumberOfVariables() {return 0;}
   virtual void SetParameters(double *pars) = 0;
-  virtual void Evaluate(double *vars, double *ret) = 0;
+  virtual void Evaluate(double *vars, double &ret) = 0;
   
 protected:
-  /// TBC - LN -> should not use _ in variable name - reserved for C++ implementation
-  int _numberOfParameters = 0;
-  int _numberOfVariables = 0;
+  int numberOfParameters = 0;
+  int numberOfVariables = 0;
 };
 
 #endif
