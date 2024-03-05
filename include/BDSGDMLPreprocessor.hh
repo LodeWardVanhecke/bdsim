@@ -74,12 +74,14 @@ private:
   void ProcessDoc(xercesc::DOMNodeIterator* dotIterator, const G4String& prefix);
   void ProcessNode(xercesc::DOMNode* node, const G4String& prefix);
   void ProcessAttributes(xercesc::DOMNamedNodeMap* attributeMap, const G4String& prefix);
+  void SetMaterialPropertiesNames();
 
   G4String parentDir;                   ///< Directory of main gdml file.
   std::vector<std::string> ignoreNodes; ///< Nodes to ignore.
   std::vector<std::string> ignoreAttrs; ///< Attributes to ignore
   std::vector<std::string> names;       ///< Names to replace.
   std::map<std::string, int> count;     ///< Debugging.
+  std::vector<G4String> materialPropertiesNames;
 
 };
 
