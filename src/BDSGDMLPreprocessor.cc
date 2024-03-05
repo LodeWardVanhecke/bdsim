@@ -22,6 +22,8 @@ along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
 #include "BDSGDMLPreprocessor.hh"
 #include "BDSTemporaryFiles.hh"
 #include "BDSUtilities.hh"
+#include "BDSMaterials.hh"
+#include "BDSGlobalConstants.hh"
 
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
@@ -130,6 +132,8 @@ BDSGDMLPreprocessor::BDSGDMLPreprocessor()
 {
   //ignoreNodes = {"setup"};
   ignoreAttrs = {"formula"};
+  SetMaterialPropertiesNames();
+
 }
 
 BDSGDMLPreprocessor::~BDSGDMLPreprocessor()
@@ -339,8 +343,12 @@ void BDSGDMLPreprocessor::ProcessAttributes(DOMNamedNodeMap* attributeMap,
       if (XMLString::compareIString(attr->getNodeName(),
                                     XMLString::transcode("name")) == 0)
 	{
-	  std::string newName = ProcessedNodeName(name, prefix);
-	  attr->setNodeValue(XMLString::transcode(newName.c_str()));
+
+      if(std::count(materialPropertiesNames.begin(),materialPropertiesNames.end(),name)==0)
+      {
+          std::string newName = ProcessedNodeName(name, prefix);
+          attr->setNodeValue(XMLString::transcode(newName.c_str()));
+      }
 	}
       else
 	{
@@ -351,13 +359,25 @@ void BDSGDMLPreprocessor::ProcessAttributes(DOMNamedNodeMap* attributeMap,
 	      // Check if whole name is found (don't match substrings).
 	      // \\b = word boundary.  $& = the matched string.
 	      std::regex whole_name(std::string("\\b") + defined_name + "\\b");
-	      expression = std::regex_replace(expression, whole_name, prefix + "_$&");
-	    }
-	  attr->setNodeValue(XMLString::transcode((expression).c_str()));
+          if(std::count(materialPropertiesNames.begin(),materialPropertiesNames.end(),name)==0)
+          {
+              expression = std::regex_replace(expression, whole_name, prefix + "_$&");
+          }
+        }
+
+        attr->setNodeValue(XMLString::transcode((expression).c_str()));
 	}
     }
 }
 
+void BDSGDMLPreprocessor::SetMaterialPropertiesNames()
+{
+    G4Material* dummyMat = BDSMaterials::Instance()->GetMaterial(BDSGlobalConstants::Instance()->VacuumMaterial());
+    G4MaterialPropertiesTable* table = dummyMat->GetMaterialPropertiesTable();
+    materialPropertiesNames.insert(materialPropertiesNames.begin(),table->GetMaterialConstPropertyNames().begin(), table->GetMaterialConstPropertyNames().end());
+    materialPropertiesNames.insert(materialPropertiesNames.begin(),table->GetMaterialPropertyNames().begin(), table->GetMaterialPropertyNames().end());
+
+}
 #else
 // insert empty function to avoid no symbols warning
 void _SymbolToPreventWarningGDML(){;}
