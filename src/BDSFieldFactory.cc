@@ -68,6 +68,7 @@ along with BDSIM.  If not, see <http://www.gnu.org/licenses/>.
 #include "BDSFieldMagZero.hh"
 #include "BDSFieldObjects.hh"
 #include "BDSFieldType.hh"
+#include "BDSFieldEMCircularTM.hh"
 #include "BDSGlobalConstants.hh"
 #include "BDSIntegratorCavityFringe.hh"
 #include "BDSIntegratorDecapole.hh"
@@ -894,6 +895,11 @@ BDSFieldObjects* BDSFieldFactory::CreateFieldEM(const BDSFieldInfo& info)
       {field = new BDSFieldEMZero(); break;}
     case BDSFieldType::muoncooler:
       {field = CreateMuonCoolerField(info, brho); break;}
+    case BDSFieldType::transversemagnetic:
+      {
+        field = new BDSFieldEMCircularTM(info.MagnetStrength());
+        break;
+      }
     default:
       return nullptr;
       break;
@@ -1301,7 +1307,7 @@ BDSFieldEM* BDSFieldFactory::CreateMuonCoolerField(const BDSFieldInfo& info,
   BDSFieldInfoExtraMuonCooler* mcExtraInfo = dynamic_cast<BDSFieldInfoExtraMuonCooler*>(extraInfo);
   if (!mcExtraInfo) // shouldn't happen, but just for safety
     {throw BDSException(__METHOD_NAME__, "no muon cooler extra definitions for field definition: " + info.NameOfParserDefinition());}
-  
+
   BDSFieldEM* result = new BDSFieldEMMuonCooler(mcExtraInfo, brho);
   return result;
 }
