@@ -503,6 +503,8 @@ void Options::PublishMembers()
   
   publish("storeModel",                     &Options::storeModel);
 
+  publish("storePerEventHistos",            &Options::storePerEventHistos);
+
   publish("samplersSplitLevel",             &Options::samplersSplitLevel);
   publish("modelSplitLevel",                &Options::modelSplitLevel);
   publish("uprootCompatible",               &Options::uprootCompatible);
