@@ -1,0 +1,52 @@
+name: distribute
+
+on:
+  workflow_dispatch:
+  release:
+    branches:
+      - 'master'
+
+jobs:
+  readthedocs:
+    name: Build documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout bdsim
+        uses: actions/checkout@v4
+        id: checkout
+
+      - name: Install manual deps
+        run: |
+          echo "manual deps"
+
+  dockerimage:
+    name: Build bdsim docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout bdsim
+        uses: actions/checkout@v4
+        id: checkout
+
+      - name: Build docker image
+        run: |
+          echo "manual deps"
+
+  cvmfs:
+    name: Build CVMFS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout bdsim
+        uses: actions/checkout@v4
+        id: checkout
+
+  emailusers:
+    name: Email BDSIM users
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout bdsim
+        uses: actions/checkout@v4
+        id: checkout
