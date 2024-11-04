@@ -50,3 +50,11 @@ jobs:
       - name: Checkout bdsim
         uses: actions/checkout@v4
         id: checkout
+
+  genrefdata:
+    name: Generate reference data
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout bdsim
+        uses: actions/checkout£
