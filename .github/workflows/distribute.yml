@@ -5,6 +5,9 @@ on:
   release:
     branches:
       - 'master'
+  push:
+    branches:
+      - 'github-distribute'
 
 # readthedocs
 # cvmfs
