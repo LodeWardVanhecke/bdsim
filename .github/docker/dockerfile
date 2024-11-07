@@ -1,0 +1,13 @@
+FROM bdsim/{{ os }}-g{{ g4_version }}
+
+RUN git clone git@github.com:bdsim-collaboration/bdsim.git
+
+RUN git checkout {{ bdsim_version }}
+
+RUN mkdir bdsim_build &&\
+    cd bdsim_build &&\
+    cmake ../bdsim &&\
+    make {{ ncpu }} &&\
+    make install
+    echo 'source /usr/local/bin/bdsim.sh' >> ~/.bashrc
+
