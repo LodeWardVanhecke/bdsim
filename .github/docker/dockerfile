@@ -8,6 +8,6 @@ RUN mkdir bdsim_build &&\
     cd bdsim_build &&\
     cmake ../bdsim &&\
     make {{ ncpu }} &&\
-    make install
+    make install &&\
     echo 'source /usr/local/bin/bdsim.sh' >> ~/.bashrc
 
