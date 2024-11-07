@@ -1,6 +1,7 @@
 FROM bdsim/alma9-g4.11.2
 
 RUN git clone https://github.com/bdsim-collaboration/bdsim.git &&\
+    cd bdsim && \
     git checkout v1.7.7
 
 RUN mkdir bdsim_build &&\
