@@ -1,8 +1,8 @@
-FROM bdsim/{{ os }}-g{{ g4_version }}
+FROM bdsim/alma9-g4.11.2
 
 RUN git clone git@github.com:bdsim-collaboration/bdsim.git
 
-RUN git checkout {{ bdsim_version }}
+RUN git checkout v1.7.7
 
 RUN mkdir bdsim_build &&\
     cd bdsim_build &&\
