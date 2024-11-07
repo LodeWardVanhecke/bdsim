@@ -6,20 +6,12 @@ on:
     branches:
       - 'master'
 
+# readthedocs
+# cvmfs
+# generate reference data
+# mailing list
+
 jobs:
-  readthedocs:
-    name: Build documentation
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout bdsim
-        uses: actions/checkout@v4
-        id: checkout
-
-      - name: Install manual deps
-        run: |
-          echo "manual deps"
-
   dockerimage:
     name: Build bdsim docker image
     runs-on: ubuntu-latest
@@ -32,29 +24,3 @@ jobs:
       - name: Build docker image
         run: |
           echo "manual deps"
-
-  cvmfs:
-    name: Build CVMFS
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout bdsim
-        uses: actions/checkout@v4
-        id: checkout
-
-  emailusers:
-    name: Email BDSIM users
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout bdsim
-        uses: actions/checkout@v4
-        id: checkout
-
-  genrefdata:
-    name: Generate reference data
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout bdsim
-        uses: actions/checkout£
