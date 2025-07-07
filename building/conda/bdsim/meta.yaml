@@ -1,109 +1,64 @@
-{% set name = "bdsimul" %}
-{% set version = "1.7.6" %}
+{% set name = "bdsim-g4" %}
+{% set version = "1.7.7" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://bitbucket.org/jairhul/bdsim/get/v{{ version }}.tar.gz
-  sha256: 92f53aa0a9fbd3cafd218f9e58ae4d1e7115733e641191c1658243fefb436600
+  url: https://github.com/bdsim-collaboration/bdsim/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 8923a197c97984e32651f877c35c3f759ca8d20b661aaec200b83dbd72e4d7d9
 
 build:
-  number: 0
-  skip: true  # [win]
+  skip: True  # [win]
   script: ${RECIPE_DIR}/build_bdsim.sh
-  run_exports:
-    - {{ pin_subpackage('bdsimul', max_pin='x.x') }}
+  number: 0
 
-# Specifying `compiler('cxx')` as a top-level build requirements to force
-# conda-smithy to generate the correct build matrix.
 requirements:
   build:
-    # - python                                 # [build_platform != target_platform]
-    # - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ stdlib("c") }} # [linux]
     - cmake
-    - make  # [unix]
-    - sed
-    # For OpenGL: https://conda-forge.org/docs/maintainer/knowledge_base.html#libgl
-    - {{ cdt('mesa-libgl-devel') }}  # [linux]
-    - {{ cdt('mesa-dri-drivers') }}  # [linux]
-    - {{ cdt('libselinux') }}  # [linux]
-    - {{ cdt('libxdamage') }}  # [linux]
-    - {{ cdt('libxxf86vm') }}  # [linux]
-    - {{ cdt('libxext') }}     # [linux]
-  host:
-    - geant4
-    - clhep
-    - root
-    - expat
-    - flex
+    - make
     - bison
-    - freetype
-    - libglu  # [linux]
-    - xerces-c
-    - libffi
-    - xorg-libx11
-    - xorg-libxfixes
-    - xorg-libxmu
-    - zlib
     - {{ cdt('mesa-libgl-devel') }}  # [linux]
     - {{ cdt('mesa-dri-drivers') }}  # [linux]
     - {{ cdt('libselinux') }}  # [linux]
     - {{ cdt('libxdamage') }}  # [linux]
     - {{ cdt('libxxf86vm') }}  # [linux]
     - {{ cdt('libxext') }}     # [linux]
-  run:
-    - root_base
-    - geant4
-    - libglu  # [linux]
-    - xorg-libx11
-    - xorg-libxmu
-    # Anything that builds against GEANT4 will need these, even if Qt/OpenGL isn't actually being used
-    # As the solution to the errors isn't obvious, add them to the runtime dependencies
-    - {{ cdt('mesa-libgl-devel') }}  # [linux]
-    - {{ cdt('mesa-dri-drivers') }}  # [linux]
-    - {{ cdt('libselinux') }}  # [linux]
-    - {{ cdt('libxdamage') }}  # [linux]
-    - {{ cdt('libxxf86vm') }}  # [linux]
-    - xorg-libxfixes  # [linux]
+
+  host:
+    - clhep
+    - xerces-c
+    - root_base >=6.32.0
+    - geant4 >=11.2.2
+    - qt-main 
+    - libzlib
+    - hdf5
+
 
 test:
   requires:
-    - cmake
-    - make  # [unix]
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
+
   commands:
-    - bdsim --version
-    #- $RECIPE_DIR/test_bdsim.sh
+    - $RECIPE_DIR/test_bdsim.sh
 
 about:
-  summary: BDSIM is a program for simulating energy deposition and particle backgrounds in accelerator beamlines.
+  home: http://bdsim-collaboration.github.io/web
+  summary: BDSIM is a code to make 3D models of particle accelerators using Geant4.
   description: |
-    Beam Delivery Simulation (BDSIM) is a C++ program that utilises the Geant4 toolkit to 
-    simulate both the transport of particles in an accelerator and their interaction with 
-    the accelerator material. BDSIM is capable of simulating a wide variety of accelerator 
-    components and magnets with Geant4 geometry dynamically built based on a text input file. 
-    Thick lens accelerator tracking routines are provided for fast accurate tracking in a vacuum.
-    Any publications including simulations made using BDSIM must cite:
-    L.J. Nevay et al., BDSIM: An Accelerator Tracking Code with Particle-Matter Interactions, Computer Physics Communications 252 107200 (2020).
-    https://doi.org/10.1016/j.cpc.2020.107200
-    https://arxiv.org/abs/1808.10745
-    Please cite BDSIM as well as Geant4.
-
-  home: http://www.pp.rhul.ac.uk/bdsim/
-  dev_url: https://bitbucket.org/jairhul/bdsim/
-  doc_url: http://www.pp.rhul.ac.uk/bdsim/manual/index.html
-  license: GPL-3.0-only
+    Beam Delivery Simulation (BDSIM) is a C++ program that utilises the Geant4 toolkit to simulate
+    both the transport of particles in an accelerator and their interaction with the accelerator
+    material. BDSIM is capable of simulating a wide variety of accelerator components and magnets
+    with Geant4 geometry dynamically built based on a text input file. Thick lens accelerator
+    tracking routines are provided for fast accurate tracking in a vacuum.
+  license: GPL-3.0-or-later
   license_family: GPL
-  license_file: 
-    - LICENCE.txt
-    - COPYING.txt
+  license_file: LICENCE.txt
+  doc_url: https://bdsim-collaboration.github.io/bdsim/sphinx/index.html
+  dev_url: https://bdsim-collaboration.github.io/bdsim/sphinx/developer.html
 
 extra:
   recipe-maintainers:
-    - anabramo
     - stewartboogert
