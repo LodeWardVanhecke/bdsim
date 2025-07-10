@@ -31,13 +31,14 @@ requirements:
   host:
     - clhep
     - xerces-c
-    - root_base >=6.32.0
-    - geant4 >=11.2.2
+    - root_base
+    - geant4
     - qt-main 
     - libzlib
-    - hdf5
 
-
+  run:
+    - python 3.12
+    
 test:
   requires:
 
